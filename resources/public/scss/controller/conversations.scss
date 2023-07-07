@@ -1,0 +1,151 @@
+
+.conversation-teaser {
+  position: relative;
+  z-index: 1;
+
+  display: block;
+  margin: 0 0 20px 0;
+  padding: 15px;
+
+  background: #FFF;
+  box-shadow: 0px 0px 20px 0px rgba(76, 87, 125, 0.06);
+
+  border-radius: 10px;
+
+  text-decoration: none;
+  font-size: 14px;
+
+  &.active {
+    background-color: $colorSpot1;
+
+    color: #FFF;
+
+    &::after {
+      position: absolute;
+      z-index: -1;
+
+      right: 0;
+      top: 50%;
+
+      display: block;
+      content: " ";
+      margin: -10px -5px 0 0;
+      width: 20px;
+      height: 20px;
+
+      background-color: $colorSpot1;
+
+      transform: rotate(45deg);
+
+    }
+  }
+
+  .date {
+    display: block;
+  }
+
+  .title {
+    display: block;
+    font-weight: normal;
+  }
+
+  &.unread {
+    .title {
+      font-weight: bold;
+    }
+  }
+
+  p {
+    margin: 0;
+    padding: 0;
+
+    font-style: italic;
+  }
+}
+
+.conversation {
+
+  .messages {
+    margin: 0 0 20px 0;
+    padding: 20px 40px 10px 40px;
+
+    background: #FFF;
+    box-shadow: 0px 0px 20px 0px rgba(76, 87, 125, 0.06);
+    border-radius: 10px;
+
+
+    h2 {
+      margin: 0 0 40px 0;
+      padding: 0;
+    }
+
+
+
+    .bubble-wrapper {
+      display: flex;
+
+      margin-bottom: 30px;
+
+      &.Outgoing {
+        justify-content: flex-end;
+
+        .bubble {
+          .message-body {
+            border-bottom-right-radius: 0;
+
+            background: #3d69fb;
+            color: #FFF;
+          }
+        }
+
+        &.Message {
+          .bubble {
+            .message-body {
+              background: #3d69fb;
+              color: #FFF;
+            }
+          }
+        }
+      }
+
+      &.Incoming {
+        .bubble {
+          .message-body {
+            border-bottom-left-radius: 0;
+            background: #e6e6e8;
+          }
+        }
+      }
+
+      .bubble {
+
+        width: 60%;
+
+        .speaker {
+          padding: 0 0 4px 15px;
+          text-transform: none;
+          font-size: 12px;
+          color: #999;
+        }
+
+        .message-body {
+          padding: 15px;
+
+          // background: #FFF;
+          // border: 1px solid rgba(0, 0, 0, .1);
+          border-radius: 20px;
+
+        }
+
+        .buttons {
+          margin-top: 10px;
+        }
+      }
+  }
+
+
+
+
+
+  }
+}

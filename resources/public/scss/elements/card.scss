@@ -1,0 +1,146 @@
+.card-rounded {
+  border-radius: 15px;
+}
+
+.card {
+  position: relative;
+  z-index: 400;
+
+  margin-bottom: 30px;
+  padding: 0px;
+
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px 0px rgba(76, 87, 125, 0.06);
+
+  &.bg-primary {
+    box-shadow: 0px 0px 20px 0px #FFF;
+
+    color: #FFF;
+
+    a {
+      color: #FFF;
+    }
+
+    input {
+      background: none;
+      color: #FFF;
+    }
+  }
+
+  &.with-tab-nav {
+    border-top-left-radius: 0;
+  }
+
+  &[data-href] {
+
+    &:hover {
+      background: $colorSpot1;
+
+      color: #FFF;
+
+      a {
+        color: #FFF;
+      }
+    }
+  }
+
+  .card-body {
+    padding: 25px !important;
+
+    @media (min-width: 768px) {
+      padding: 40px;
+    }
+
+    fieldset {
+      position: relative;
+      margin-top: 20px;
+      margin-left: -40px;
+      margin-right: -40px;
+
+      padding: 20px 40px 0 40px;
+      border-top: 2px solid $colorBackgroundLight;
+
+      legend {
+        position: absolute;
+
+        top: -24px;
+        left: 30px;
+
+        width: 85%;
+
+        span {
+          display: inline-block;
+          background: #FFF;
+          padding: 0 10px;
+
+          color: #999;
+          font-weight: bold;
+          font-size: 12px;
+          line-height: 12px;
+          text-transform: uppercase;
+          letter-spacing: 2px;
+        }
+
+      }
+
+    }
+
+    .card-title {
+      margin-bottom: 15px;
+    }
+
+    .input-receiver:first-child {
+
+      table.table:first-child {
+        margin-top: 0;
+      }
+
+      .table-responsive:first-child {
+        table.table:first-child {
+          margin-top: 0;
+        }
+      }
+    }
+
+    ul:first-child {
+      margin-top: 0;
+    }
+
+    ul:last-child {
+      margin-bottom: 0;
+
+      li:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+
+    .heading.h2:first-child {
+      margin-top: 0;
+    }
+
+    table.table:last-child {
+      margin-bottom: 0;
+    }
+
+    table.table:first-child {
+      margin-top: 0;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    h2 {
+      margin: 10px 0 20px -25px;
+      padding: 3px 0 0 18px;
+      border-left: 5px solid $colorSpot2;
+    }
+  }
+}

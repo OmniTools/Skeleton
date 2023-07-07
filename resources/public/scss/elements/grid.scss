@@ -1,0 +1,17 @@
+.col-md-6 {
+  &.border-right {
+
+    @media (min-width: 768px) {
+      padding-right: 30px;
+      border-right: 1px solid #CCC;
+    }
+  }
+
+  &.border-left {
+
+    @media (min-width: 768px) {
+      padding-left: 30px;
+      border-left: 1px solid #CCC;
+    }
+  }
+}

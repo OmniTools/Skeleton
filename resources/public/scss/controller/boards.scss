@@ -1,0 +1,98 @@
+
+.board {
+
+  &.topics {
+
+
+    .options {
+      margin: 20px 0 40px 0;
+
+      border-radius: 10px;
+    }
+
+    .topic {
+      margin: 0 0 30px 0;
+      padding: 15px;
+
+      background: #FFF;
+      box-shadow: 0px 0px 20px 0px rgba(76, 87, 125, 0.06);
+      border-radius: 10px;
+
+      .initials-wrapper {
+        max-width: 70px;
+
+        img {
+          width: 100%;
+          height: auto;
+
+          border-radius: 50%;
+        }
+      }
+
+      .initials {
+
+        position: relative;
+        padding-top: 100%;
+
+        .xback {
+          position: absolute;
+          inset: 0;
+          z-index: 40;
+
+
+          background: $colorSpot2;
+          border-radius: 50%;
+        }
+
+        .xcontent {
+          position: absolute;
+          inset: 0;
+          z-index: 41;
+
+          display: flex;
+          align-items: center;
+
+          color: #FFF;
+          font-weight: bold;
+          font-size: 22px;
+
+          span {
+            display: block;
+            width: 100%;
+            text-align: center;
+          }
+        }
+      }
+
+      .poster {
+        font-size: 14px;
+      }
+
+      .title {
+        display: block;
+        font-size: 20px;
+        font-weight: bold;
+        text-decoration: none;
+      }
+
+      p.teaser {
+        margin: 5px 0;
+        font-style: italic;
+        font-size: 14px;
+      }
+
+      .post {
+        margin: 10px 0;
+      }
+
+      .meta {
+        font-size: 14px;
+        color: #999;
+      }
+    }
+
+    .reply {
+      background: #FFF;
+    }
+  }
+}

@@ -1,0 +1,173 @@
+.gantt-legend {
+  span {
+    display: inline-block;
+    margin: 0 20px 0 0;
+
+    em {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+
+      margin: 0 10px 0 0;
+
+      background: #ccc;
+      border-radius: 50%;
+
+      &.search {
+        background: #2ecaac;
+      }
+
+      &.offer {
+        background: #54c6f9;
+      }
+
+      &.request {
+        background: rgb(248, 215, 218);
+      }
+    }
+  }
+}
+
+.gantt {
+  display: grid;
+  border: 0;
+  border-radius: 12px;
+  margin: 30px 0;
+
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 20px 0px rgba(76, 87, 125, 0.06);
+
+  &__row {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    background-color: #fff;
+
+
+    &:nth-child(odd) {
+      background-color: #fafafa;
+      .gantt__row-first {
+        background-color: #fafafa;
+      }
+    }
+    &:nth-child(3) {
+      .gantt__row-bars {
+        border-top: 0;
+      }
+      .gantt__row-first {
+        border-top: 0;
+      }
+    }
+    &--empty {
+      background-color: lighten(#ff6252, 25%) !important;
+      z-index: 1;
+      .gantt__row-first {
+        border-width: 1px 1px 0 0;
+      }
+    }
+    &--lines {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      background-color: transparent;
+      grid-template-columns: 100px repeat(14, 1fr);
+      span {
+        display: block;
+        border-right: 1px solid rgba(0, 0, 0, 0.1);
+        &.marker {
+          background-color: rgba(10, 52, 68, 0.13);
+          z-index: 2;
+        }
+      }
+      &:after {
+        grid-row: 1;
+        grid-column: 0;
+        background-color: #1688b345;
+        z-index: 2;
+        height: 100%;
+      }
+    }
+    &--months {
+      color: #fff;
+      background-color: $colorSpot1 !important;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      grid-template-columns: 100px repeat(14, 1fr);
+      .gantt__row-first {
+        border-top: 0 !important;
+        background-color: $colorSpot1 !important;
+      }
+      span {
+        text-align: center;
+        font-size: 13px;
+        align-self: center;
+        font-weight: bold;
+        padding: 20px 0;
+      }
+    }
+    &-first {
+      background-color: #fff;
+      border-width: 1px 0 0 0;
+      border-color: rgba(0, 0, 0, 0.1);
+      border-style: solid;
+      padding: 15px 0;
+      font-size: 13px;
+      font-weight: bold;
+      text-align: center;
+    }
+    &-bars {
+      list-style: none;
+      display: grid;
+      padding: 9px 0;
+      margin: 0;
+      grid-template-columns: repeat(14, 1fr);
+      grid-gap: 8px 0;
+      border-top: 1px solid rgba(221, 221, 221, 0.8);
+
+      li {
+        font-weight: 500;
+        text-align: left;
+        font-size: 12px;
+        min-height: 15px;
+        background-color: #55de84;
+        padding: 5px 12px;
+        color: #fff;
+        overflow: hidden;
+        position: relative;
+        cursor: pointer;
+        border-radius: 20px;
+
+        &.stripes {
+          background-image: repeating-linear-gradient(
+                          45deg,
+                          transparent,
+                          transparent 5px,
+                          rgba(255, 255, 255, 0.1) 5px,
+                          rgba(255, 255, 255, 0.1) 12px
+          );
+        }
+
+        a {
+          color: #FFF;
+          font-weight: bold;
+        }
+
+        &:before,
+        &:after {
+          content: "";
+          height: 100%;
+          top: 0;
+          z-index: 4;
+          position: absolute;
+          background-color: rgba(0, 0, 0, 0.3);
+        }
+        &:before {
+          left: 0;
+        }
+        &:after {
+          right: 0;
+        }
+      }
+    }
+  }
+}

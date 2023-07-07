@@ -1,0 +1,47 @@
+.file-upload-dropzone {
+  margin: 0;
+  padding: 30px;
+
+  border: 3px dashed #CCC;
+
+  text-align: center;
+  color: #CCC;
+  cursor: pointer;
+}
+
+.card.bg-primary {
+  .file-upload-dropzone {
+    border: 3px dashed rgba(0, 0, 0, .2);
+    color: rgba(0, 0, 0, .4);
+  }
+
+  .files-list {
+    .file {
+      a i {
+        color: #FFF;
+      }
+    }
+  }
+}
+
+.files-list.images {
+
+  .file.image-preview {
+
+    display: block;
+    margin-bottom: 30px;
+
+    border-radius: 15px;
+    background: $colorBackgroundLight;
+
+    img {
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+    }
+
+    .caption {
+      padding: 10px;
+      font-size: 14px;
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{% extends 'Base.html.twig' %}
+
+{% block Head %}
+    <link rel="stylesheet" type="text/css" href="public/css/build/{{ version | md5 }}/standalone.css" />
+{% endblock %}
+
+{% block Body %}
+
+    <div id="banner">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-6">
+                    <a class="logo" href="{{ controller.getUri('Dashboard', 'index') }}"><img src="public/images/logo-negative.svg" alt="Logo ESBA GmbH" /></a>
+                </div>
+                <div class="col-6">
+                    {% block OptionalButtons %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid standalone">
+        <div class="row justify-content-center">
+            <div class="col-lg-{{ columns | default('4') }}">
+                <div class="content">
+
+                    {% block Content %}
+
+                    {% endblock %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="footer">
+        <nav>
+            <a href="https://www.petri-vertrieb.de/impressum/">Impressum</a>
+            <a href="https://www.petri-vertrieb.de/datenschutz/">Datenschutz</a>
+        </nav>
+        <p>v. {{ version }}</p>
+    </footer>
+{% endblock %}

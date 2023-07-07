@@ -1,0 +1,12 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  background: $colorBackgroundLight;
+
+  font-family: 'Noto Sans', sans-serif;
+  color: $colorSpot1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

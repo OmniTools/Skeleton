@@ -1,20 +1,19 @@
 <?php
 
 return [
-    'database' => [
-        'dbms' => 'mysql',
-        'host' => 'localhost',
-        'user' => 'root',
-        'password' => 'root',
-        'schema' => 'webapp-database',
+    'Database' => [
+        'Dbms' => 'mysql',
+        'Host' => 'localhost',
+        'User' => 'root',
+        'Password' => 'root',
+        'Schema' => 'webapp-database',
     ],
-    'base' => 'https://xxxx:8890/',
-    'passwordSalt' => 'xxxx',
+    'PasswordSalt' => 'xxxx',
     'Platform' => [
+       'BaseUrl' => 'https://xxxx:8890/',
        'Environment' => 'Dev',
        'DevMode' => true,
     ],
-
     'Google' => [
         'Maps' => [
             'Api' => [
@@ -25,14 +24,14 @@ return [
           //  'Id' => 'GTM-TNGF7CV',
         ],
     ],
-    'thumbnails' => [
+    '_thumbnails' => [
         // 'webp' => true,
         'imagemagick' => [
             // 'path' => '/usr/local/bin/convert',
             'path' => '/opt/homebrew/bin/convert',
         ],
     ],
-    'mail' => [
+    'Mail' => [
         'transport' => 'Localhost',
         '_smtp' => [
             'host' => 'xxxx',
@@ -46,7 +45,7 @@ return [
             ],
         ],
     ],
-    'errorlogging' => [
+    'ErrorLogging' => [
         '_Sentry' => [
             'dsn' => 'xxxxxx',
             'environment' => 'development',

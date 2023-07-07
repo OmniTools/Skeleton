@@ -21,7 +21,7 @@
     "frootbox/filesystem":"0.0.7",
     "frootbox/mail":"0.0.8",
     "frootbox/translation":"0.0.7",
-    "frootbox/mvc":"@dev",
+    "frootbox/mvc":"0.1.1",
     "frootbox/paypal":"0.0.7",
     "twig/twig":"3.*",
     "php-di/php-di": "^6.4",

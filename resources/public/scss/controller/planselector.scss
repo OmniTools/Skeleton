@@ -1,0 +1,63 @@
+.plan-selector {
+
+  .guarantee-badge {
+    position: relative;
+    z-index: 1000;
+
+    max-width: 160px;
+    margin: 0 -100px -30px 0;
+  }
+
+  .panel-starter.inactive {
+    color: #CCC !important;
+  }
+
+  .panel-starter.inactive .text-primary, .panel-starter.inactive .text-muted {
+    color: #CCC !important;
+  }
+
+  .panel-starter.inactive button[type="submit"] {
+    display: none;
+  }
+
+  .panel-starter.inactive button[type="button"] {
+    background: #CCC;
+    border-color: #CCC;
+  }
+
+  .panel-starter .only-monthly {
+    display: none;
+  }
+
+  .panel-starter.inactive .only-monthly {
+    display: block;
+    color: #0dcd94 !important;
+  }
+
+  .starter-hint-bubble {
+    margin: 0 -60px;
+
+    .btn.btn-primary {
+      position: relative;
+      z-index: 801;
+
+      padding: 15px;
+      font-weight: bold;
+
+      &::after {
+        z-index: 800;
+        position: absolute;
+        bottom: -10px;
+        left: calc(50% - 10px);
+        display: block;
+        width: 20px;
+        height: 20px;
+
+        content: " ";
+
+        transform: rotate(45deg);
+        background: $colorSpot2;
+      }
+    }
+  }
+}

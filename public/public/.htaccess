@@ -1,0 +1,5 @@
+RewriteEngine on
+RewriteRule css/build/[0-9a-z]+/(.*?)$ css/build/$1
+RewriteRule [0-9a-z]+/javascript/(.*?)$ javascript/$1
+RewriteRule [0-9a-z]+/images/(.*?)$ images/$1
+RewriteRule [0-9a-z]+/favicon/(.*?)$ favicon/$1

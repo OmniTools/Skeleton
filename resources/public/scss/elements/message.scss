@@ -1,0 +1,72 @@
+.message {
+  margin: 20px 0;
+  padding: 10px;
+
+  border: 1px solid #CCC;
+
+  text-align: center;
+
+  &.error {
+    border-color: $colorDanger;
+    color: $colorDanger;
+  }
+
+  &.info {
+    border-color: $colorSpot1;
+    color: $colorSpot1;
+  }
+
+  &.success {
+    border-color: $colorSuccess;
+    color: $colorSuccess;
+  }
+
+  &.warning {
+    border-color: $colorWarning;
+    color:  $colorWarning;
+
+    a {
+      color: darken($colorWarning, 10%);
+    }
+  }
+
+  &.danger {
+    border-color: $colorDanger;
+    color:  $colorDanger;
+
+    a {
+      color: darken($colorDanger, 10%);
+    }
+  }
+
+  p {
+    margin-bottom: 5px;
+  }
+
+  p:last-of-type {
+    margin-bottom: 0px;
+  }
+}
+
+.card-body {
+
+  .generic-receiver:first-child {
+    .message:first-child {
+      margin-top: 0;
+    }
+  }
+
+  .generic-receiver:last-child {
+    .message:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .message:last-child {
+    margin-bottom: 0;
+  }
+
+  .message:first-child {
+    margin-top: 0;
+  }
+}

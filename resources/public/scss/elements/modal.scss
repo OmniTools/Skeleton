@@ -1,0 +1,47 @@
+
+table.table + .modal-body {
+  padding-top: 0;
+}
+
+.modal-body {
+
+  .col-md-6 {
+    h3 {
+      &:first-child {
+        margin: 10px 0 20px 0;
+      }
+    }
+  }
+}
+
+.modal-x-content>table.table {
+
+  thead {
+    tr {
+      th:first-child {
+        padding-left: 16px;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      td:first-child {
+        padding-left: 16px;
+      }
+    }
+  }
+
+  &:last-child {
+    margin-bottom: 4px;
+
+    tbody {
+      tr:last-of-type {
+        td {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+}
+

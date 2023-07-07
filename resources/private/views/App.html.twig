@@ -1,0 +1,195 @@
+{% extends 'Base.html.twig' %}
+
+{% block Head %}
+    <link rel="stylesheet" type="text/css" href="public/css/build/{{ version | md5 }}/app.css" />
+
+    {#
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxtwh6ZqkfmnGGAhXfHuOBkjuZRZcgxaI&v=weekly" defer></script>
+    #}
+
+    <script>
+        var urls = {
+            checkLogin: "{{ controller.getUri('Session', 'ajaxCheckLogin') }}",
+            modalLogin: "{{ controller.getUri('Session', 'ajaxModalLogin', { email: user.getEmail() }) }}",
+        };
+    </script>
+{% endblock %}
+
+{% block Body %}
+
+{#
+    <div id="banner">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-2 col-md-3">
+                    <a class="d-none d-md-inline logo" href="{{ controller.getUri('Dashboard', 'index') }}"><img src="public/images/logo.svg" alt="Logo Handwerk Connected" /></a>
+                    <a class="d-md-none logo" href="{{ controller.getUri('Dashboard', 'index') }}"><img src="public/images/logo-signet-negativ.svg" alt="Logo Handwerk Connected" /></a>
+                </div>
+                <div class="col-10 col-md-9 menu-col">
+
+                    {% block additionalMenuContent %}{% endblock %}
+
+                    {% if user.getAccess() == "User" and company.getPlan().getName() == "None" %}
+                        <a class="btn btn-light bg-white" href="{{ controller.getUri('Session', 'logout') }}"><i class="far fa-fw fa-power-off"></i>Abmelden</a>
+                    {% else %}
+
+                        <a class="d-md-none toggle toggle-menu" href="#"><i class="fal fa-bars"></i></a>
+
+                        <span class="dropstart dropdown">
+                            <a class="toggle" data-bs-toggle="dropdown" aria-expanded="false" href="#"><i class="fal fa-user"></i></a>
+
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ controller.getUri('Account', 'index') }}"><i class="far fa-fw fa-user"></i>Benutzerprofil</a></li>
+
+                                <li><hr class="dropdown-divider"></li>
+
+                                {% if user.canGainAdminAccess() or user.getAccess() == "Admin" or user.getAccess() == "Superuser" %}
+                                    <li><a class="dropdown-item ajax" href="{{ controller.getUri('Session', 'ajaxSwitchToAdmin') }}"><i class="far fa-fw fa-cog"></i>Admin</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                {% endif %}
+
+                                <li><a class="dropdown-item" href="{{ controller.getUri('Session', 'logout') }}"><i class="far fa-fw fa-power-off"></i>Abmelden</a></li>
+                            </ul>
+                        </span>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+#}
+
+
+    <div class="grid-container">
+        <div class="menu">
+
+            <div class="logo">
+                Case Management System
+            </div>
+
+            {% set menu = controller.getMenuForAction() %}
+
+            {% if menu is not null %}
+                <div class="outer-wrapper">
+
+                    {#
+                    <div class="thumbnail-wrapper">
+                        {% set thumbnail = user.getThumbnail() %}
+
+                        {% if thumbnail %}
+                            <img class="image" src="Files/thumbnail/{{ thumbnail.getId() }}/150/150/{{ thumbnail.getName() }}?cropped=1" alt="" />
+                        {% else %}
+                            <div class="image initials-wrapper">
+                                <div class="back"></div>
+                                <div class="initials">
+                                    <span>{{ user.getInitials() }}</span>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <div class="username">
+
+                        </div>
+                    </div>
+                    #}
+
+                    <div class="inner-wrapper">
+                        <div class="profile-wrapper">
+                            <div class="row align-items-center">
+
+                                <div class="col-9">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        {% if menu %}
+                            <div class="nav-wrapper">
+                                {% for section in menu.getSections() %}
+                                    <nav>
+                                        <h5>{{ section.title }}</h5>
+
+                                        <ul>
+                                            {% for item in section.items %}
+                                                <li>
+                                                    <a {% if item.getConfirm() %}data-confirm="{{ item.getConfirm() }}"{% endif %} class="{% if item.isActive() %}active{% endif %} {{ item.getClass() }}" href="{{ item.getUrl() }}">
+                                                        <i class="far fa-fw fa-{{ item.getIcon() }}"></i>{{ item.getTitle() }}
+
+                                                        {% if item.getBadge() %}
+                                                            <span class="badge rounded-pill bg-danger">
+                                                        {{ item.getBadge() }}
+                                                        <span class="visually-hidden">unread messages</span>
+                                                    </span>
+                                                        {% endif %}
+                                                    </a>
+
+                                                    {% if item.getSubItems() | length %}
+                                                        <ul>
+                                                            {% for subItem in item.getSubItems() %}
+                                                                <li><a class="{% if subItem.isActive() %}active{% endif %}" href="{{ subItem.getUrl() }}">{{ subItem.getTitle() }}</a></li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    {% endif %}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+
+                                    </nav>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+            {% endif %}
+
+        </div>
+        <div class="content">
+
+            <div id="inner-banner">
+                <div class="row">
+                    <div class="col-md-6">
+                        <a class="name" href="{{ controller.getUri('Account', 'index') }}">
+                            <i class="far fa-user preicon"></i>{{ user.getName() | default(user.getEmail())}}
+                        </a>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <a href="#"><i class="far fa-power-off"></i></a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="top-spacer"></div>
+
+            <div class="main-content-wrapper {% if true or menu is not null %}container-fluid{% else %}container{% endif %}">
+
+            <div class="content-wrapper">
+
+                {% if front.hasMessages() %}
+                    {% for message in front.getClearMessages() %}
+                        <div class="message {{ message.type }}">
+                            <p>{{ message.message }}</p>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                {% block Content %}
+                    <h1>Herzlich Willkommen!</h1>
+                {% endblock %}
+
+
+            </div>
+
+            <footer id="footer">
+                <nav>
+                    <a href="https://www.petri-vertrieb.de/impressum/">Impressum</a>
+                    <a href="https://www.petri-vertrieb.de/datenschutz/">Datenschutz</a>
+                </nav>
+                <p>v. {{ version }}</p>
+            </footer>
+        </div>
+    </div>
+
+{% endblock %}

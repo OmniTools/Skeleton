@@ -1,0 +1,100 @@
+{% extends (extend ? extend : 'Standalone.html.twig') %}
+
+{% if not exposeError %}
+    {% set columns = 6 %}
+{% else %}
+    {% set columns = 10 %}
+{% endif %}
+
+{% set title = "500" %}
+
+{% block OptionalButtons %}
+    <script>
+        $(function() {
+            $('.go-back').click(function(event) {
+                event.preventDefault();
+                history.back();
+            });
+        });
+    </script>
+    <a class="float-end btn btn-primary go-back" href="#">zurück</a>
+{% endblock %}
+
+{% block Content %}
+    <div class="card">
+        <div class="card-body">
+
+            <h1>Fehler 500 - Serverfehler</h1>
+
+            {% if not exposeError %}
+                <p><b>Leider ist ein Fehler aufgetreten.</b></p>
+
+                <p>Wir kümmern uns so schnell wie möglich darum, das hier bald alles wieder funktioniert.</p>
+
+                {% if eventId %}
+                    <p>Wenn du den Fehler Forum melden willst kopiere bitte auch den Fehlercode in deine Nachricht.</p>
+                    <p>Fehlercode: <code>{{ eventId }}</code></p>
+                {% endif %}
+
+                <p>
+                    Falls das Problem weiterhin besteht kannst du uns auch gern dazu per <a href="mailto:info@petri-vertrieb.de">E-Mail</a> oder <a href="tel:0447185053-0">Telefon</a> kontaktieren.
+                </p>
+
+                <ul>
+                    <li><a class="go-back" href="Dashboard/index">zurück zur Startseite</a></li>
+                </ul>
+            {% else %}
+
+
+                <div class="message error">
+                    {{ exception.getMessage() }}<br />
+                    {{ exception.getFile() }}<br />
+                    Zeile {{ exception.getLine() }}
+                </div>
+
+                <div style="margin: 40px 0 0 0; font-size: 12px">
+
+                    <table class="table">
+                        <tbody>
+
+                        {% for trace in exception.getTrace() %}
+                            <tr>
+                                <td>{{ trace.line }}</td>
+                                <td>
+                                    {{ trace.file }}
+
+                                    {% if trace.class %}
+                                        <br />
+                                        {{ trace.class }}::{{ trace.function }}(<br />
+
+                                        {% for arg in trace.args %}
+
+                                            {% if arg | gettype == "string" %}
+                                                &nbsp;&nbsp;&nbsp;&nbsp;"{{ arg }}"<br />
+                                            {% elseif arg | gettype == "array" %}
+                                                &nbsp;&nbsp;&nbsp;&nbsp;[<br />
+                                                {% for x, y in arg %}
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ x }}: {% if y | gettype == "string" %}"{{ y }}"{% endif %}<br />
+                                                {% endfor %}
+                                                &nbsp;&nbsp;&nbsp;&nbsp;]<br />
+                                            {% endif %}
+                                        {% endfor %}
+
+                                        );
+                                    {% endif %}
+
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+
+
+                </div>
+
+            {% endif %}
+
+        </div>
+    </div>
+{% endblock %}

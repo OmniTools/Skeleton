@@ -1,0 +1,77 @@
+.btn {
+
+  border-radius: 4px;
+
+  font-size: 14px;
+
+  i {
+    margin-right: 6px;
+
+    &.icon {
+      margin: 0;
+    }
+  }
+
+  &.btn-primary {
+    background: $colorPrimary;
+    border-color: $colorPrimary;
+  }
+
+  &.btn-secondary {
+    background: $colorSecondary;
+    border-color: $colorSecondary;
+  }
+
+  &.btn-light {
+    background: $colorLight;
+    border-color: $colorLight;
+  }
+}
+
+.btn-big {
+  display: block;
+  margin: 0 0 30px 0;
+  padding: 20px;
+
+  background: transparentize($colorSpot1, .9);
+  border-radius: 10px;
+
+  transition: background-color .5s, color .5s;
+
+  text-align: center;
+  text-decoration: none;
+  color: $colorText;
+  font-weight: bold;
+
+  i {
+    font-size: 24px;
+
+    &.block-icon {
+      display: block;
+      margin: 0 0 10px 0;
+
+      font-size: 40px;
+    }
+  }
+
+  &:hover {
+    background: $colorSpot1;
+    color: #FFF;
+  }
+
+  &.btn-secondary {
+    background: $colorSecondary;
+    border-color: $colorSecondary;
+
+    color: #FFF;
+
+    &:hover {
+      background: $colorSpot2;
+      color: #FFF;
+    }
+  }
+}
+
+.btn-grid {
+  margin-bottom: -30px;
+}
