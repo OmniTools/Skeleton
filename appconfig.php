@@ -1,13 +1,26 @@
-<?php 
+<?php
 /**
- * 
+ *
  */
 
 return [
     'config.file' => CORE_DIR . 'localconfig.php',
     \Frootbox\Db\Dbms\Interfaces\Dbms::class => function ( $c ) {
 
-        return $c->get(\Frootbox\Db\Dbms\Mysql::class);
+        $config = $c->get(\Frootbox\Config\Config::class);
+
+        switch ($config->get('Database.Dbms')) {
+            case 'Mysql':
+                return new \Frootbox\Db\Dbms\Mysql(
+                    host: $config->get('Database.Host'),
+                    schema: $config->get('Database.Schema'),
+                    user: $config->get('Database.User'),
+                    password: $config->get('Database.Password'),
+                );
+
+            default:
+                throw new \Exception('Unknown DBMS wrapper: ' . $config->get('Database.Dbms'));
+        }
     },
     \Frootbox\Mail\Transports\Interfaces\TransportInterface::class => function ( $c ) {
 

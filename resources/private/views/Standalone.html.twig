@@ -10,7 +10,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-6">
-                    <a class="logo" href="{{ controller.getUri('Dashboard', 'index') }}"><img src="public/images/logo-negative.svg" alt="Logo ESBA GmbH" /></a>
+                    <a class="logo" href="{{ controller.getUri('Dashboard', 'index') }}"><img src="public/images/logo-negative.svg" alt="{{ configuration.get('Platform.Title') }}" /></a>
                 </div>
                 <div class="col-6">
                     {% block OptionalButtons %}{% endblock %}

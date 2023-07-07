@@ -1,3 +1,4 @@
+@import 'elements/menu.scss';
 @import 'elements/grid.scss';
 @import 'elements/breadcrumb.scss';
 @import 'elements/dropzone.scss';
@@ -21,14 +22,11 @@ body {
 }
 
 a {
-  color: $colorSpot1;
-
-  &.spot2 {
-    color: $colorSpot2;
-  }
+  color: $colorPrimary;
+  transition: color 1s;
 
   &:hover {
-    color: $colorSpot2;
+    color: darken($colorPrimary, 10%);
   }
 }
 

@@ -2,7 +2,7 @@
 
 return [
     'Database' => [
-        'Dbms' => 'mysql',
+        'Dbms' => 'Mysql',
         'Host' => 'localhost',
         'User' => 'root',
         'Password' => 'root',

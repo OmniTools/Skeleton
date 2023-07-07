@@ -6,5 +6,11 @@
 
 ## Configuration
 
-    sdfdfdsf
-        dsfsdf
+    Database:
+        Dbms: Mysql
+        Host: localhost
+        User: user-name
+        Password: user-password
+        Schema: database-name
+    Platform:
+        BaseUrl            

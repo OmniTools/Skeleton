@@ -1,0 +1,38 @@
+{% extends 'Standalone.html.twig' %}
+
+{% set columns = 4 %}
+
+{% block OptionalButtons %}
+    {# <a class="float-end btn btn-secondary" href="{{ controller.getUri('Session', 'registration') }}">zur Registrierung</a> #}
+{% endblock %}
+
+{% block Content %}
+
+
+    <div class="card">
+        <div class="card-body">
+
+            <h5 class="card-title">Hier anmelden</h5>
+
+            <form class="ajax" action="{{ controller.getActionUri('ajaxLogin', { redirect: get.get('originalRequest') }) }}" method="post">
+
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="E-Mail" value="{{ get.get('email') }}">
+                    <label for="email">E-Mail</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="password" name="password" aria-describedby="passwordHelp" placeholder="Passwort">
+                    <label for="floatingPassword">Passwort</label>
+                    <div id="passwordHelp" class="form-text my-2"><a href="{{ controller.getActionUri('passwordRequest') }}"><i class="fa-regular fa-circle-chevron-right preicon"></i>Passwort vergessen</a></div>
+                    {# <div id="" class="form-text my-2"><a href="{{ controller.getActionUri('registration') }}"><i class="fa-regular fa-circle-chevron-right preicon"></i>Neuen Account erstellen</a></div> #}
+                </div>
+
+                <button type="submit" class="btn btn-primary">Anmelden</button>
+
+            </form>
+
+        </div>
+    </div>
+
+
+{% endblock %}

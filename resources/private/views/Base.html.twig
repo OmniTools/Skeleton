@@ -6,7 +6,7 @@
         </script>
 
         <meta charset="utf-8">
-        <title>{{ title | default('ESBA GmbH intern') }}</title>
+        <title>{{ title | default(configuration.get('Platform.Title')) }}</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -23,9 +23,9 @@
 
         <meta name="theme-color" content="#fafafa">
 
-        <base href="{{ configuration.get('base') }}">
+        <base href="{{ configuration.get('Platform.BaseUrl') }}">
 
-        <link rel="stylesheet" type="text/css" href="public/icons/css/all.css" />
+        <link rel="stylesheet" type="text/css" href="public/icons/css/all.min.css" />
 
         <link rel="icon" href="public/{{ version | md5 }}/favicon/favicon.ico" type="image/x-icon" />
         <link rel="apple-touch-icon" sizes="180x180" href="public/{{ version | md5 }}/favicon/apple-touch-icon.png">

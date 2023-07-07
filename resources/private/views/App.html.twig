@@ -64,7 +64,8 @@
         <div class="menu">
 
             <div class="logo">
-                Case Management System
+                <a class="logo" href="{{ controller.getUri('Dashboard', 'index') }}"><img src="public/images/logo-negative.svg" alt="{{ configuration.get('Platform.Title') }}" /></a>
+
             </div>
 
             {% set menu = controller.getMenuForAction() %}

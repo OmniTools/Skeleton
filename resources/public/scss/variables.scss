@@ -6,24 +6,18 @@ $colorSpot3: #62b935;
 $colorSpot4: #d9dbdd;
 
 $colorText: #263871;
-$colorBackground: #e7e9eb;
-$colorBackgroundLight: #f2f3f9;
+$colorBackground: #1e1e2d;
+$colorBackgroundLight: #f4f7f9;
 
 $colorLight: $colorBackground;
-$colorPrimary: $colorSpot2;
+$colorPrimary: #009ef7;
 $colorSecondary: $colorSpot1;
 $colorSuccess: #0dcd94;
 $colorInfo: #0c85f5;
 $colorWarning: #fbc518;
 $colorDanger: #f7284a;
 
-$colorCompany1: #4472c4;
-$colorCompany2: #b4c7e7;
-$colorCompany3: #203864;
-$colorCompany4: #a9d18e;
-$colorCompany5: #548235;
-$colorCompany6: #385623;
-$colorCompany7: #ffc000;
-$colorCompany8: #c55a11;
-$colorCompany9: #00b0f0;
-
+/* Menu */
+$menuBackground: $colorBackground;
+$menuColorHeading: #646477;
+$menuColorItem: #9D9DA6;
