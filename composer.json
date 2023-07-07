@@ -1,0 +1,29 @@
+{
+  "require": {
+    "frootbox/db":"@dev",
+    "frootbox/debug":"0.0.1",
+    "frootbox/exceptions":"0.0.6",
+    "frootbox/config":"0.0.7",
+    "frootbox/http":"0.0.5",
+    "frootbox/filesystem":"0.0.7",
+    "frootbox/mail":"0.0.8",
+    "frootbox/translation":"0.0.7",
+    "frootbox/mvc":"@dev",
+    "frootbox/paypal":"0.0.7",
+    "twig/twig":"3.*",
+    "php-di/php-di": "^6.4",
+    "doctrine/annotations": "^1.13",
+    "tijsverkoyen/css-to-inline-styles": "^2.2",
+    "frogbob/inky-php": "0.0.2",
+    "spipu/html2pdf": "^5.2",
+    "sentry/sdk": "^3.3",
+    "erusev/parsedown": "^1.7"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "allow-plugins": {
+      "php-http/discovery": true
+    }
+  }
+}
