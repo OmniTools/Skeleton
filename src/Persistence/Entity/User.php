@@ -208,7 +208,7 @@ class User extends \OmniTools\Persistence\Entity\AbstractRow implements \Frootbo
         ]);
 
         // Insert new report
-        $report = $reportRepository->insert($report);
+        $report = $reportRepository->persist($report);
 
         return $report;
     }
@@ -226,12 +226,14 @@ class User extends \OmniTools\Persistence\Entity\AbstractRow implements \Frootbo
     }
 
     /**
-     *
+     * @param string $actionTitle
+     * @param array|null $parameters
+     * @return User\SignedAction
      */
-    public function signedActionCreate(string $actionTitle, array $parameters = null ): \HandwerkConnected\Persistence\Entity\User\SignedAction
+    public function signedActionCreate(string $actionTitle, array $parameters = null ): \OmniTools\Persistence\Entity\User\SignedAction
     {
         // Obtain repository
-        $signedActionRepository = $this->getDb()->getRepository(\HandwerkConnected\Persistence\Repository\User\SignedAction::class);
+        $signedActionRepository = $this->getDb()->getRepository(\OmniTools\Persistence\Repository\User\SignedAction::class);
 
         if (!empty($parameters['preventDuplicates'])) {
 
@@ -246,23 +248,26 @@ class User extends \OmniTools\Persistence\Entity\AbstractRow implements \Frootbo
             $result->map('delete');
         }
 
-        $signedAction = new \HandwerkConnected\Persistence\Entity\User\SignedAction([
+        $signedAction = new \OmniTools\Persistence\Entity\User\SignedAction([
             'userId' => $this->getId(),
             'action' => $actionTitle,
             'token' => md5(microtime(true)),
         ]);
 
-        $signedAction = $signedActionRepository->insert($signedAction);
+        $signedAction = $signedActionRepository->persist($signedAction);
 
         return $signedAction;
     }
 
     /**
-     *
+     * @param string $action
+     * @param string $token
+     * @return void
+     * @throws \Exception
      */
     public function signedActionVerify(string $action, string $token): void
     {
-        $signedActionRepository = $this->getDb()->getRepository(\HandwerkConnected\Persistence\Repository\User\SignedAction::class);
+        $signedActionRepository = $this->getDb()->getRepository(\OmniTools\Persistence\Repository\User\SignedAction::class);
 
         $signedAction = $signedActionRepository->fetchOne([
             'where' => [

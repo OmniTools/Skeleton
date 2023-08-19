@@ -10,9 +10,15 @@ return [
     ],
     'PasswordSalt' => 'xxxx',
     'Platform' => [
-       'BaseUrl' => 'https://xxxx:8890/',
-       'Environment' => 'Dev',
-       'DevMode' => true,
+        'Environment' => 'Dev',
+        'DevMode' => true,
+        'Title' => 'OmniTools Application Skeleton',
+        'BaseUrl' => 'https://xxxx:8890/',
+        'Links' => [
+            'Privacy' => null,
+            'Imprint' => null,
+            'GeneralTerms' => null,
+        ],
     ],
     'Google' => [
         'Maps' => [

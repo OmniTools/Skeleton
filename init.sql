@@ -26,3 +26,67 @@ CREATE TABLE `users` (
      `dateOfBirth` date DEFAULT NULL,
      PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `users_roles` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `date` datetime NOT NULL,
+    `updated` datetime NOT NULL,
+    `title` varchar(45) NOT NULL,
+    `roleKey` varchar(45) NOT NULL,
+    `orderId` int(11) DEFAULT '0',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `users_2_roles` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `date` datetime NOT NULL,
+    `updated` datetime NOT NULL,
+    `userId` int(11) NOT NULL,
+    `roleId` int(11) NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `users_signedactions` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `date` datetime NOT NULL,
+    `updated` datetime NOT NULL,
+    `userId` int(11) NOT NULL,
+    `token` varchar(32) NOT NULL,
+    `action` varchar(45) NOT NULL,
+    `payload` text,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `logs` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `date` datetime NOT NULL,
+    `updated` datetime NOT NULL,
+    `userId` int(11) DEFAULT NULL,
+    `forCompanyId` int(11) DEFAULT NULL,
+    `forUserId` int(11) DEFAULT NULL,
+    `action` varchar(255) NOT NULL,
+    `payload` text,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `users_signedactions` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `date` datetime NOT NULL,
+    `updated` datetime NOT NULL,
+    `userId` int(11) NOT NULL,
+    `token` varchar(32) NOT NULL,
+    `action` varchar(45) NOT NULL,
+    `payload` text,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `migrations` (
+      `id` int(11) NOT NULL AUTO_INCREMENT,
+      `date` datetime NOT NULL,
+      `updated` datetime NOT NULL,
+      `userId` int(11) NOT NULL,
+      `version` varchar(45) NOT NULL,
+      `log` text,
+      PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+

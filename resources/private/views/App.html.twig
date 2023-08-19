@@ -18,153 +18,173 @@
 {% block Body %}
 
 {#
-    <div id="banner">
-        <div class="container-fluid">
-            <div class="row align-items-center">
-                <div class="col-2 col-md-3">
-                    <a class="d-none d-md-inline logo" href="{{ controller.getUri('Dashboard', 'index') }}"><img src="public/images/logo.svg" alt="Logo Handwerk Connected" /></a>
-                    <a class="d-md-none logo" href="{{ controller.getUri('Dashboard', 'index') }}"><img src="public/images/logo-signet-negativ.svg" alt="Logo Handwerk Connected" /></a>
-                </div>
-                <div class="col-10 col-md-9 menu-col">
+<div id="banner">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-2 col-md-3">
+                <a class="d-none d-md-inline logo" href="{{ controller.getUri('Dashboard', 'index') }}"><img src="public/images/logo.svg" alt="Logo Handwerk Connected" /></a>
+                <a class="d-md-none logo" href="{{ controller.getUri('Dashboard', 'index') }}"><img src="public/images/logo-signet-negativ.svg" alt="Logo Handwerk Connected" /></a>
+            </div>
+            <div class="col-10 col-md-9 menu-col">
 
-                    {% block additionalMenuContent %}{% endblock %}
+                {% block additionalMenuContent %}{% endblock %}
 
-                    {% if user.getAccess() == "User" and company.getPlan().getName() == "None" %}
-                        <a class="btn btn-light bg-white" href="{{ controller.getUri('Session', 'logout') }}"><i class="far fa-fw fa-power-off"></i>Abmelden</a>
-                    {% else %}
+                {% if user.getAccess() == "User" and company.getPlan().getName() == "None" %}
+                    <a class="btn btn-light bg-white" href="{{ controller.getUri('Session', 'logout') }}"><i class="far fa-fw fa-power-off"></i>Abmelden</a>
+                {% else %}
 
-                        <a class="d-md-none toggle toggle-menu" href="#"><i class="fal fa-bars"></i></a>
+                    <a class="d-md-none toggle toggle-menu" href="#"><i class="fal fa-bars"></i></a>
 
-                        <span class="dropstart dropdown">
-                            <a class="toggle" data-bs-toggle="dropdown" aria-expanded="false" href="#"><i class="fal fa-user"></i></a>
+                    <span class="dropstart dropdown">
+                        <a class="toggle" data-bs-toggle="dropdown" aria-expanded="false" href="#"><i class="fal fa-user"></i></a>
 
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{ controller.getUri('Account', 'index') }}"><i class="far fa-fw fa-user"></i>Benutzerprofil</a></li>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ controller.getUri('Account', 'index') }}"><i class="far fa-fw fa-user"></i>Benutzerprofil</a></li>
 
+                            <li><hr class="dropdown-divider"></li>
+
+                            {% if user.canGainAdminAccess() or user.getAccess() == "Admin" or user.getAccess() == "Superuser" %}
+                                <li><a class="dropdown-item ajax" href="{{ controller.getUri('Session', 'ajaxSwitchToAdmin') }}"><i class="far fa-fw fa-cog"></i>Admin</a></li>
                                 <li><hr class="dropdown-divider"></li>
+                            {% endif %}
 
-                                {% if user.canGainAdminAccess() or user.getAccess() == "Admin" or user.getAccess() == "Superuser" %}
-                                    <li><a class="dropdown-item ajax" href="{{ controller.getUri('Session', 'ajaxSwitchToAdmin') }}"><i class="far fa-fw fa-cog"></i>Admin</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                {% endif %}
+                            <li><a class="dropdown-item" href="{{ controller.getUri('Session', 'logout') }}"><i class="far fa-fw fa-power-off"></i>Abmelden</a></li>
+                        </ul>
+                    </span>
+                {% endif %}
 
-                                <li><a class="dropdown-item" href="{{ controller.getUri('Session', 'logout') }}"><i class="far fa-fw fa-power-off"></i>Abmelden</a></li>
-                            </ul>
-                        </span>
-                    {% endif %}
-
-                </div>
             </div>
         </div>
     </div>
+</div>
 #}
 
 
-    <div class="grid-container">
-        <div class="menu">
+<div class="grid-container">
+    <div class="menu">
 
-            <div class="logo">
-                <a class="logo" href="{{ controller.getUri('Dashboard', 'index') }}"><img src="public/images/logo-negative.svg" alt="{{ configuration.get('Platform.Title') }}" /></a>
+        <div class="logo">
+            <a class="logo" href="{{ controller.getUri('Dashboard', 'index') }}"><img src="public/images/logo-negative.svg" alt="{{ configuration.get('Platform.Title') }}" /></a>
+        </div>
 
-            </div>
+        {% set menu = controller.getMenuForAction() %}
 
-            {% set menu = controller.getMenuForAction() %}
+        {% if menu is not null %}
+            <div class="outer-wrapper">
 
-            {% if menu is not null %}
-                <div class="outer-wrapper">
+                {#
+                <div class="thumbnail-wrapper">
+                    {% set thumbnail = user.getThumbnail() %}
 
-                    {#
-                    <div class="thumbnail-wrapper">
-                        {% set thumbnail = user.getThumbnail() %}
-
-                        {% if thumbnail %}
-                            <img class="image" src="Files/thumbnail/{{ thumbnail.getId() }}/150/150/{{ thumbnail.getName() }}?cropped=1" alt="" />
-                        {% else %}
-                            <div class="image initials-wrapper">
-                                <div class="back"></div>
-                                <div class="initials">
-                                    <span>{{ user.getInitials() }}</span>
-                                </div>
+                    {% if thumbnail %}
+                        <img class="image" src="Files/thumbnail/{{ thumbnail.getId() }}/150/150/{{ thumbnail.getName() }}?cropped=1" alt="" />
+                    {% else %}
+                        <div class="image initials-wrapper">
+                            <div class="back"></div>
+                            <div class="initials">
+                                <span>{{ user.getInitials() }}</span>
                             </div>
-                        {% endif %}
+                        </div>
+                    {% endif %}
 
-                        <div class="username">
+                    <div class="username">
 
+                    </div>
+                </div>
+                #}
+
+                <div class="inner-wrapper">
+                    <div class="profile-wrapper">
+                        <div class="row align-items-center">
+
+                            <div class="col-9">
+
+                            </div>
                         </div>
                     </div>
-                    #}
 
-                    <div class="inner-wrapper">
-                        <div class="profile-wrapper">
-                            <div class="row align-items-center">
+                    {% if menu %}
+                        <div class="nav-wrapper">
+                            {% for section in menu.getSections() %}
+                                <nav>
+                                    <h5>{{ section.title }}</h5>
 
-                                <div class="col-9">
+                                    <ul>
+                                        {% for item in section.items %}
+                                            <li>
+                                                <a {% if item.getConfirm() %}data-confirm="{{ item.getConfirm() }}"{% endif %} class="{% if item.isActive() %}active{% endif %} {{ item.getClass() }}" href="{{ item.getUrl() }}">
+                                                    <i class="far fa-fw fa-{{ item.getIcon() }}"></i>{{ item.getTitle() }}
 
-                                </div>
-                            </div>
-                        </div>
-
-                        {% if menu %}
-                            <div class="nav-wrapper">
-                                {% for section in menu.getSections() %}
-                                    <nav>
-                                        <h5>{{ section.title }}</h5>
-
-                                        <ul>
-                                            {% for item in section.items %}
-                                                <li>
-                                                    <a {% if item.getConfirm() %}data-confirm="{{ item.getConfirm() }}"{% endif %} class="{% if item.isActive() %}active{% endif %} {{ item.getClass() }}" href="{{ item.getUrl() }}">
-                                                        <i class="far fa-fw fa-{{ item.getIcon() }}"></i>{{ item.getTitle() }}
-
-                                                        {% if item.getBadge() %}
-                                                            <span class="badge rounded-pill bg-danger">
+                                                    {% if item.getBadge() %}
+                                                        <span class="badge rounded-pill bg-danger">
                                                         {{ item.getBadge() }}
                                                         <span class="visually-hidden">unread messages</span>
                                                     </span>
-                                                        {% endif %}
-                                                    </a>
-
-                                                    {% if item.getSubItems() | length %}
-                                                        <ul>
-                                                            {% for subItem in item.getSubItems() %}
-                                                                <li><a class="{% if subItem.isActive() %}active{% endif %}" href="{{ subItem.getUrl() }}">{{ subItem.getTitle() }}</a></li>
-                                                            {% endfor %}
-                                                        </ul>
                                                     {% endif %}
-                                                </li>
-                                            {% endfor %}
-                                        </ul>
+                                                </a>
 
-                                    </nav>
-                                {% endfor %}
-                            </div>
-                        {% endif %}
+                                                {% if item.getSubItems() | length %}
+                                                    <ul>
+                                                        {% for subItem in item.getSubItems() %}
+                                                            <li><a class="{% if subItem.isActive() %}active{% endif %}" href="{{ subItem.getUrl() }}">{{ subItem.getTitle() }}</a></li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                {% endif %}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
 
-                    </div>
+                                </nav>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
 
-                </div>
-            {% endif %}
-
-        </div>
-        <div class="content">
-
-            <div id="inner-banner">
-                <div class="row">
-                    <div class="col-md-6">
-                        <a class="name" href="{{ controller.getUri('Account', 'index') }}">
-                            <i class="far fa-user preicon"></i>{{ user.getName() | default(user.getEmail())}}
-                        </a>
-                    </div>
-                    <div class="col-md-6 text-end">
-                        <a href="#"><i class="far fa-power-off"></i></a>
-                    </div>
                 </div>
 
             </div>
+        {% endif %}
 
-            <div class="top-spacer"></div>
+    </div>
+    <div class="content">
 
-            <div class="main-content-wrapper {% if true or menu is not null %}container-fluid{% else %}container{% endif %}">
+        <div id="inner-banner">
+            <div class="row">
+                <div class="col">
+                    <a class="name" href="{{ controller.getUri('Account', 'index') }}">
+                        <i class="far fa-user preicon"></i>{{ user.getName() | default(user.getEmail())}}
+                    </a>
+                </div>
+                <div class="col banner-buttons">
+
+                    <div class="options-wrapper">
+
+                        {#
+                        <a class="button btn" href="{{ controller.getUri('Session', 'logout') }}"><i class="far fa-power-off"></i></a>
+                        #}
+
+                        <div class=" dropdown">
+                            <a class="button btn" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="far fa-bars"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                {% if user.getAccess() == "Superuser" %}
+                                    <li><a class="dropdown-item" href="{{ controller.getUri('Admin') }}"><i class="far fa-fw fa-cog"></i>Administrator</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                {% endif %}
+                                <li><a class="dropdown-item" href="{{ controller.getUri('Session', 'logout') }}"><i class="far fa-fw fa-power-off"></i>Abmelden</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="top-spacer"></div>
+
+        <div class="main-content-wrapper {% if true or menu is not null %}container-fluid{% else %}container{% endif %}">
 
             <div class="content-wrapper">
 
@@ -193,4 +213,4 @@
         </div>
     </div>
 
-{% endblock %}
+    {% endblock %}

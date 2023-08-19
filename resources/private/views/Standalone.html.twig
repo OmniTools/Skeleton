@@ -35,8 +35,17 @@
 
     <footer id="footer">
         <nav>
-            <a href="https://www.petri-vertrieb.de/impressum/">Impressum</a>
-            <a href="https://www.petri-vertrieb.de/datenschutz/">Datenschutz</a>
+            {% if configuration.get('Platform.Links.Imprint') %}
+                <a href="{{ configuration.get('Platform.Links.Imprint') }}">Impressum</a>
+            {% endif %}
+
+            {% if configuration.get('Platform.Links.Privacy') %}
+                <a href="{{ configuration.get('Platform.Links.Privacy') }}">Datenschutz</a>
+            {% endif %}
+
+            {% if configuration.get('Platform.Links.GeneralTerms') %}
+                <a href="{{ configuration.get('Platform.Links.GeneralTerms') }}">AGB</a>
+            {% endif %}
         </nav>
         <p>v. {{ version }}</p>
     </footer>
