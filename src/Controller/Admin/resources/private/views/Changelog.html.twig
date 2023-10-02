@@ -1,0 +1,34 @@
+{% extends 'App.html.twig' %}
+
+{% block Content %}
+
+    <div class="heading h1">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1>Changelog</h1>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ controller.getUri('Admin', 'index') }}">Admin</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Changelog</li>
+            </ol>
+        </nav>
+
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+
+            {% if not changelogHtml %}
+                <div class="message warning">Es existiert noch keine CHANGELOG.md Datei im Stammverzeichnis.</div>
+            {% else %}
+                {{ changelogHtml | raw }}
+            {% endif %}
+
+        </div>
+    </div>
+
+{% endblock %}

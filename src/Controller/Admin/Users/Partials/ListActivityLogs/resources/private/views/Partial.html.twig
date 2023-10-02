@@ -1,0 +1,38 @@
+
+
+{% if logs | length == 0 %}
+    <div class="message info">Es gibt keine Aktivität für diesen Benutzer.</div>
+{% else %}
+
+    <table class="table small-text">
+        <thead>
+        <tr>
+            <th>Datum</th>
+            <th>Aktion</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for log in logs %}
+            <tr data-title="Log #{{ log.getId() }} Details" data-size="lg" data-modal="{{ controller.getUri('Admin/Logs', 'ajaxModalLog', { logId: log.getId() }) }}">
+                <td nowrap>
+                    {{ log.getDate() | date('d.m.Y H:i') }} Uhr<br />
+
+                    {% set xuser = log.getUser() %}
+
+                    {% if xuser %}
+                        <a href="{{ xuser.getUriAdmin('logs') }}"><i class="far fa-user preicon"></i>{{ xuser.getName() | default(xuser.getEmail()) }}</a>
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="ellipsis-dynamic">
+                        {{ log.getActionParsed(translator) | raw }}
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+{% endif %}

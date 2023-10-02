@@ -1,0 +1,34 @@
+i.far, i.fal {
+
+  &.big {
+    font-size: 36px;
+  }
+}
+
+
+i {
+
+  &.icon {
+    margin-left: 8px;
+  }
+
+  &.preicon {
+    margin-right: 8px !important;
+  }
+
+  &.posticon {
+    margin-left: 8px !important;
+  }
+
+  &.followup {
+    margin-left: 20px;
+  }
+
+  &.inactive {
+    color: #CCC;
+  }
+
+  &.active {
+    color: $colorSuccess;
+  }
+}

@@ -1,0 +1,36 @@
+<script>
+    $(function() {
+
+        /**
+         *
+         */
+        $(document).on('click', 'a.toggle-multi-create', function(event) {
+
+            event.preventDefault();
+            event.stopImmediatePropagation();
+
+            $('.single-create, .multi-create').toggleClass('d-none');
+        });
+    });
+</script>
+
+<form class="ajax" method="post" action="{{ controller.getActionUri('ajaxCreate', { roleId: role.getId(), redirect: get.get('redirect') }) }}">
+
+    <div class="modal-body">
+
+        <div class="mb-3 single-create">
+            <label for="email" class="form-label">E-Mail *</label>
+            <input type="email" class="form-control" id="email" name="email">
+            <div id="emailHelp" class="form-text"><a class="toggle-multi-create" href="#">Mehrere Benutzer auf einmal erstellen.</a></div>
+        </div>
+        <div class="mb-3 multi-create d-none">
+            <label for="multiEmail" class="form-label">E-Mail *</label>
+            <textarea class="form-control" id="multiEmail" name="multiEmail"></textarea>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Speichern</button>
+    </div>
+
+</form>

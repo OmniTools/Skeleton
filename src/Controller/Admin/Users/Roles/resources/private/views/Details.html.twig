@@ -1,0 +1,61 @@
+{% extends 'App.html.twig' %}
+
+{% block Content %}
+
+    <div class="heading h1">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1><span class="prefix">{{ role.getId() }}</span>{{ role.getTitle() }}</h1>
+            </div>
+            <div class="col-md-4">
+
+            </div>
+        </div>
+    </div>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ controller.getUri('Admin', 'index') }}">Admin</a></li>
+            <li class="breadcrumb-item"><a href="{{ controller.getUri('Admin/Users', 'index') }}">Benutzerverwaltung</a></li>
+            <li class="breadcrumb-item"><a href="{{ controller.getUri('Admin/Users/Roles', 'index') }}">Benutzerrollen</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ role.getTitle() }}</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-8">
+
+            <div class="card">
+                <div class="card-body">
+
+                    <h2>Details</h2>
+
+                    <form method="post" class="ajax" action="{{ controller.getActionUri('ajaxUpdate', { roleId: role.getId() }) }}">
+
+                        <div class="mb-3">
+                            <label for="Title" class="form-label">Titel *</label>
+                            <input type="text" class="form-control" id="Title" name="Title" value="{{ role.getTitle() }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="RoleKey" class="form-label">Schlüssel *</label>
+                            <input type="text" class="form-control" id="RoleKey" name="RoleKey" value="{{ role.getRoleKey() }}">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Speichern</button>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+
+            <div class="d-grid gap-2">
+                <a data-confirm="Soll diese Rolle wirklich allen Benutzern zugewiesen werden?" href="{{ controller.getActionUri('ajaxAssignToAll', { roleId: role.getId() }) }}" class="ajax btn btn-primary">Allen Benutzern diese Rolle zuweisen</a>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

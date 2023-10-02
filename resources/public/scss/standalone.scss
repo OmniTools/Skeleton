@@ -18,6 +18,60 @@
 
 .standalone {
   padding-bottom: 30px;
+
+  &.full-image-content-wrapper {
+
+    padding: 0 !important;
+
+    .content {
+      position: relative;
+      padding: 50px 70px;
+      height: 100%;
+      text-align: center;
+    }
+
+    .content .card {
+      margin: 0 !important;
+    }
+
+    .content .card-body {
+      padding: 50px 60px 0px 60px !important;
+    }
+
+    @media (min-width: 1200px) {
+      .content .card-body {
+        padding: 150px 60px 0px 60px !important;
+      }
+    }
+
+    .content .card-body #footer {
+      position: absolute;
+      inset: auto 60px 10px 60px;
+      text-align: left;
+    }
+
+    .content .card-body #footer nav {
+      text-align: right;
+    }
+
+    .content .card-body #footer nav a {
+      padding: 0 0 0 20px;
+    }
+
+
+    .content a.logo img {
+      width: $standaloneFullImageLogoWidth;
+      max-width: 100%;
+      margin: 0 0 40px 0;
+    }
+
+    @media (min-width: 1200px) {
+      .content a.logo img {
+        // width: 200px;
+        margin: 0 0 60px 0;
+      }
+    }
+  }
 }
 
 #footer {

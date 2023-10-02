@@ -1,0 +1,75 @@
+
+
+{% if users.getCount() == 0 %}
+    {% if keyword %}
+        <div class="message info">Es wurden keine Benutzer zum Suchbegriff gefunden.</div>
+    {% else %}
+        <div class="message info">Es wurden noch keine Benutzer mit diesem Zugriff angelegt.</div>
+    {% endif %}
+{% else %}
+
+    <div class="table-responsive">
+
+        <table class="table table-hover small-text">
+            <thead>
+                <tr>
+                    <th nowrap>
+                        ID
+                        <a href="#" class="sort-table" data-column="id">
+                            <i class="far fa-sort"></i>
+                        </a>
+                    </th>
+                    <th nowrap>
+                        E-Mail
+                        <a href="#" class="sort-table" data-column="email">
+                            <i class="far fa-sort"></i>
+                        </a>
+                    </th>
+
+                    {% if configuration.get('Platform.Login.EnableUsername') %}
+                        <th>Login</th>
+                    {% endif %}
+
+                    <th>Name</th>
+                    <th nowrap>
+                        Registriert
+                        <a href="#" class="sort-table" data-column="date">
+                            <i class="far fa-sort"></i>
+                        </a>
+                    </th>
+                    <th nowrap>
+                        Aktiv
+                        <a href="#" class="sort-table" data-column="lastClick">
+                            <i class="far fa-sort"></i>
+                        </a>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                {% for xuser in users %}
+                    <tr class="{% if highlight == xuser.getId() %}highlighted{% endif %}" data-href="{{ controller.getUri('Admin/Users', 'details', { userId: xuser.getId() }) }}">
+                        <td>{{ xuser.getId() }}</td>
+                        <td nowrap="nowrap"><i class="far fa-user preicon"></i>{{ xuser.getEmail() }}</td>
+
+                        {% if configuration.get('Platform.Login.EnableUsername') %}
+                            <td>{{ xuser.getLogin() }}</td>
+                        {% endif %}
+
+                        <td>{{ xuser.getName() }}</td>
+
+                        <td>{{ xuser.getDate() | date('d.m.Y') }}</td>
+                        <td>
+                            {% if xuser.getLastClick() %}
+                                {{ xuser.getLastClick() | date('d.m.Y') }}
+                            {% endif %}
+                        </td>
+                        <td class="text-end">
+                            <a class="ajax" data-bs-toggle="tooltip" data-bs-title="als dieser Benutzer anmelden" href="{{ controller.getActionUri('ajaxCaptureLogin', { userId: xuser.getId() }) }}"><i class="fa-regular fa-arrow-right-to-bracket"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}

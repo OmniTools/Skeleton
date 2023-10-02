@@ -1,0 +1,91 @@
+{% extends 'App.html.twig' %}
+
+{% block Content %}
+
+    <div class="heading h1">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1><span class="prefix">#{{ xuser.getId() }}</span> {{ xuser.getEmail() }}</h1>
+                <span class="subtitle">E-Mails</span>
+            </div>
+            <div class="col-md-4 text-end">
+
+                <a data-bs-toggle="tooltip" data-bs-title="als dieser Benutzer anmelden" class="ajax btn btn-secondary" href="{{ controller.getActionUri('ajaxCaptureLogin', { userId: xuser.getId() }) }}"><i class="icon fa-regular fa-arrow-right-to-bracket"></i></a>
+                <a href="{{ controller.getActionUri('loginUrl', { userId: xuser.getId() }) }}" class="btn btn-secondary"><i class="icon far fa-link"></i></a>
+                <a class="btn btn-primary" href="{{ controller.getActionUri('delete', { userId: xuser.getId() }) }}"><i class="far fa-trash preicon"></i>Benutzer löschen</a>
+
+            </div>
+        </div>
+    </div>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ controller.getUri('Admin', 'index') }}">Admin</a></li>
+            <li class="breadcrumb-item"><a href="{{ controller.getUri('Admin/Users', 'index') }}">Benutzerverwaltung</a></li>
+            <li class="breadcrumb-item"><a href="{{ controller.getUri('Admin/Users', 'details', { userId: xuser.getId() }) }}">{{ xuser.getEmail() }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Benutzer bearbeiten</li>
+        </ol>
+    </nav>
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link " href="{{ xuser.getUriAdmin() }}">Benutzerdetails</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="{{ xuser.getUriAdmin('logs') }}">Logbuch</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="{{ xuser.getUriAdmin('mail') }}">E-Mails</a>
+        </li>
+    </ul>
+
+    <div class="card">
+        <div class="card-body">
+
+            <h2>gesendete E-Mails</h2>
+
+            <div id="mailsReceiver">
+                {{ view.partial('OmniTools/Controller/Admin/Users/Partials/ListMails', {
+                    user: xuser,
+                }) | raw }}
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+
+            <h2>vordefinierte E-Mails</h2>
+
+            <table class="table small-text">
+                <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Beschreibung</th>
+                        <th>zuletzt</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for preDefined in preDefinedMails %}
+                        <tr>
+                            <td>{{ preDefined }}</td>
+                            <td>{{ ("MailPreDefined" ~ preDefined) | translate}}</td>
+                            <td>
+                                {%  if xuser.getConfig('mails.' ~ preDefined) %}
+                                    {{ xuser.getConfig('mails.' ~ preDefined) | date('d.m.Y H:i') }} Uhr
+                                {% endif %}
+                            </td>
+                            <td class="text-end"><a class="ajax btn btn-sm btn-primary" href="{{ xuser.getUriAdmin('ajaxMailSendPredefined', { mailKey: "RegisteredReminder1" }) }}">jetzt senden</a></td>
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+{% endblock %}

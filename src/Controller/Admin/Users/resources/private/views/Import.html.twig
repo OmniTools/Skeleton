@@ -1,0 +1,43 @@
+{% extends 'App.html.twig' %}
+
+{% block Content %}
+
+    <div class="heading h1">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1>Benutzer importieren</h1>
+            </div>
+            <div class="col-md-4 text-end">
+
+                <a href="{{ controller.getActionUri('index') }}" class="btn btn-primary">zurück</a>
+
+            </div>
+        </div>
+    </div>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ controller.getUri('Admin', 'index') }}">Admin</a></li>
+            <li class="breadcrumb-item"><a href="{{ controller.getActionUri('index') }}">Benutzerverwaltung</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Import</li>
+        </ol>
+    </nav>
+
+    <div class="card">
+        <div class="card-body">
+
+            <h2>Benutzer importieren</h2>
+
+            <div id="imagesReceiver">
+                {{ view.partial('OmniTools/Controller/Files/Partials/SingleFile', {
+                    container: '#imagesReceiver',
+                    uid: 'admin-file-upload',
+                    skipCard: true,
+                    scope: 'Platform'
+                }) | raw }}
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

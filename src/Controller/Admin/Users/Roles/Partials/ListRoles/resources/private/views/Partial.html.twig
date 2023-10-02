@@ -1,0 +1,36 @@
+
+
+{% if roles | length == 0 %}
+    <div class="message info">Es wurden keine Benutzerrollen erstellt.</div>
+{% else %}
+
+    <div class="table-responsive">
+
+        <table class="table table-hover small-text" data-sort="{{ controller.getActionUri('ajaxSort') }}" id="roles">
+            <thead>
+                <tr>
+                    <th nowrap>#</th>
+                    <th nowrap>Titel</th>
+                    <th>Schlüssel</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+
+                {% for role in roles %}
+                    <tr id="{{ role.getId() }}" class="{% if highlight == role.getId() %}highlighted{% endif %}" data-href="{{ controller.getActionUri('details', { roleId: role.getId() }) }}">
+                        <td>{{ role.getId() }}</td>
+                        <td nowrap="nowrap">{{ role.getTitle() }}</td>
+                        <td>{{ role.getRoleKey() }}</td>
+                        <td><i class="drag-handle far fa-grip-lines"></i></td>
+                        <td class="text-end">
+                            <a data-bs-toggle="tooltip" data-bs-title="Rolle löschen" class="ajax" data-modal data-title="Rolle löschen" href="{{ controller.getActionUri('ajaxModalDelete', { roleId: role.getId() }) }}"><i class="fa-regular fa-trash"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+{% endif %}

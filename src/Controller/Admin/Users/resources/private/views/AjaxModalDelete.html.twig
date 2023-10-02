@@ -1,0 +1,17 @@
+<form class="ajax" method="post" action="{{ controller.getActionUri('ajaxDelete', { userId: xuser.getId(), redirect: controller.getActionUri('index') }) }}">
+
+    <div class="modal-body">
+
+        <p>Soll dieser Benutzer wirklich gelöscht werden? Dieser Schritt kann nicht rückgängig gemacht werden.</p>
+
+        <div class="mb-3 form-check">
+            <input required type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">JA, der Benutzer soll gelöscht werden.</label>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-danger">Benutzer jetzt löschen</button>
+    </div>
+
+</form>

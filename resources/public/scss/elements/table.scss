@@ -1,9 +1,44 @@
+@import '../variables';
 
 table.table {
 
   tbody {
     tr {
+
+      &.highlighted {
+
+        td {
+          background: $colorSpot4;
+          color: #FFF;
+          text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+
+          a {
+            color: #FFF;
+          }
+        }
+      }
+
       td {
+
+        color: $fontBaseColor;
+
+        a.icon-prefix {
+          position: relative;
+          display: inline-block;
+          padding-left: 25px;
+
+          i {
+            position: absolute;
+            top: 5px;
+            left: 0px;
+
+          }
+        }
+        &.message {
+          border: none;
+          text-align: center;
+        }
+
         ul:first-child {
           margin-top: 0;
         }
@@ -55,6 +90,93 @@ table.table {
         &.level-12 {
           padding-left: 330px !important;
         }
+      }
+    }
+  }
+
+  &.borderless {
+    tbody {
+      tr {
+        th, td {
+          border: none;
+        }
+      }
+    }
+  }
+
+  &.table-row-dashed {
+    tbody {
+      tr {
+        td {
+          padding-top: 15px;
+          padding-bottom: 15px;
+          border-bottom-style: dashed;
+        }
+
+        &.highlighted {
+          td {
+            border-top: 1px solid #FFF;
+            border-color: transparent;
+          }
+        }
+
+        &[data-href] {
+          &:hover {
+            border-top: 1px solid #FFF;
+            border-color: transparent;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+table.table {
+
+  &.small-text {
+    td, th {
+      font-size: 14px;
+    }
+  }
+
+  tbody {
+    tr {
+
+      th, td.title {
+        padding-left: 0;
+        font-weight: 700;
+        color: $fontBaseColorLight;
+      }
+
+      &[data-href] {
+        td {
+          cursor: pointer;
+
+          a {
+            transition: none;
+          }
+        }
+
+        &:hover {
+          td {
+            background: $colorSpot1;
+            color: #FFF;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+
+            a {
+              color: #FFF;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.vertical-align-middle {
+    tbody {
+      td {
+        vertical-align: middle;
       }
     }
   }

@@ -1,0 +1,23 @@
+<form class="ajax" method="post" action="{{ controller.getActionUri('ajaxUpdate', { clientId: client.getId() }) }}">
+
+    <div class="modal-body">
+
+        <div class="mb-3">
+            <label for="title" class="form-label">Titel *</label>
+            <input type="text" class="form-control" id="title" name="title" required placeholder="Titel" value="{{ client.getTitle() }}">
+        </div>
+        <div class="mb-3">
+            <label for="key" class="form-label">Key</label>
+            <input type="text" readonly class="form-control" id="key" name="key" value="{{ client.getClientKey() }}">
+        </div>
+        <div class="mb-3">
+            <label for="secret" class="form-label">Secret</label>
+            <input type="text" readonly class="form-control" id="secret" name="secret" value="{{ client.getClientSecret() }}">
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Speichern</button>
+    </div>
+
+</form>

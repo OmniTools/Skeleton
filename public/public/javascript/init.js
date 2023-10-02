@@ -1,6 +1,15 @@
 var _autoLoginCheckTimer = null;
 
-$(function ( ) {
+$(function() {
+
+    /**
+     * Toggle menu
+     */
+    $(document).on('click', 'a.toggle-menu', function(event) {
+        event.preventDefault();
+
+        $('body').toggleClass('menu-visible');
+    });
 
     /**
      * Toggle offcanvas menu for mobile

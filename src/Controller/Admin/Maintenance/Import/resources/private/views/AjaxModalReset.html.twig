@@ -1,0 +1,16 @@
+<form class="ajax" method="post" action="{{ controller.getActionUri('ajaxDatabaseReset') }}">
+
+    <div class="modal-body">
+
+        <div class="mb-3">
+            <label for="confirmation" class="form-label">Sicherheit</label>
+            <input type="text" class="form-control" id="confirmation" name="confirmation" required>
+            <div id="emailHelp" class="form-text">Zur Bestätigung die Zeichenkette K5JF273 eingeben.</div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Datenbank Reset ausführen</button>
+    </div>
+
+</form>

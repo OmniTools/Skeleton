@@ -1,0 +1,128 @@
+{% extends 'App.html.twig' %}
+
+{% block Content %}
+
+    <div class="heading h1">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1>Verfügbarkeiten</h1>
+            </div>
+            <div class="col-md-4 text-end">
+
+            </div>
+        </div>
+    </div>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ controller.getUri('Admin', 'index') }}">Admin</a></li>
+            <li class="breadcrumb-item"><a href="{{ controller.getUri('Admin/Users', 'index') }}">Benutzerverwaltung</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Verfügbarkeiten</li>
+        </ol>
+    </nav>
+
+    <div class="card">
+        <div class="card-body">
+
+            <form action="{{ controller.getActionUri('ajaxSearchAvailabilities') }}" class="ajax mb-4" method="post">
+
+                <div class="row align-items-end">
+                    <div class="col-md-3">
+
+                        {{ view.partial('OmniTools/View/Partials/Input/LocationShort', {
+                            lat: get.get('lat'),
+                            lng: get.get('lng'),
+                            locationQuery: get.get('locationQuery'),
+                        }) | raw }}
+
+                    </div>
+                    <div class="col-md-2">
+
+                        <div class="mb-3">
+                            <label for="distanceMin" class="form-label">min.</label>
+                            <input type="number" step="1" min="0" class="form-control" id="distanceMin" name="distanceMin">
+                        </div>
+
+                    </div>
+                    <div class="col-md-2">
+
+                        <div class="mb-3">
+                            <label for="distanceMax" class="form-label">max.</label>
+                            <input type="number" step="1" min="0" class="form-control" id="distanceMax" name="distanceMax">
+                        </div>
+
+                    </div>
+                    <div class="col-md-2">
+
+                        <div class="mb-3">
+                            <label for="dateFrom" class="form-label">von</label>
+                            <input type="date" class="form-control" id="dateFrom" name="dateFrom">
+                        </div>
+
+                    </div>
+                    <div class="col-md-2">
+
+                        <div class="mb-3">
+                            <label for="dateTo" class="form-label">bis</label>
+                            <input type="date" class="form-control" id="dateTo" name="dateTo">
+                        </div>
+
+                    </div>
+                    <div class="col-md-1">
+
+                        <div class="mb-3 d-grid">
+                            <button type="submit" class="btn btn-primary"><i class="far fa-search"></i></button>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </form>
+
+            <div id="availabilities-receiver">
+
+                {{ view.partial('OmniTools/Controller/Admin/Users/Partials/SearchAvailabilities', {
+                    skipDistance: true,
+                    result: rows
+                }) | raw }}
+
+                {#
+                <table class="table small-text">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Gewerk</th>
+                        <th>Hersteller</th>
+                        <th>Produkt</th>
+                        <th>Arbeitsbereich</th>
+
+                        <th>Fähigkeit</th>
+                        <th>Erfahrung</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in rows %}
+                        <tr>
+                            <td>{{ row.getId() }}</td>
+                            <td><a href="{{ controller.getUri('Admin/Companies', 'details', { companyId: row.getCompanyId() }) }}">{{ row.getName() }}</a></td>
+                            <td>{{ row.getTradeTitle() }}</td>
+                            <td>{{ row.getManufacturerTitle() }}</td>
+                            <td>{{ row.getProductTitle() }}</td>
+                            <td>{{ row.getWorkareaTitle() }}</td>
+                            <td>{{ row.getAbilityTitle() }}</td>
+                            <td>{{ ("ExperienceLevel" ~ row.getExperienceLevel()) | translate }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                #}
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

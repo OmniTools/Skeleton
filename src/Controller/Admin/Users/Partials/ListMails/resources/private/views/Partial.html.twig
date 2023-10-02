@@ -1,0 +1,28 @@
+
+
+{% if mails | length == 0 %}
+    <div class="message info">Es wurden keine E-Mails für diesen Benutzer gefunden.</div>
+{% else %}
+
+    <div class="table-responsive">
+
+        <table class="table table-hover small-text">
+            <thead>
+                <tr>
+                    <th>Datum</th>
+                    <th>Betreff</th>
+                    <th>Empfänger</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                {% for mail in mails %}
+                    <tr>
+                        <td>{{ mail.getDate() | date('d.m.Y H:i') }} Uhr</td>
+                        <td>{{ mail.getSubject() }}</td>
+                        <td>{{ mail.getRecipients() }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}

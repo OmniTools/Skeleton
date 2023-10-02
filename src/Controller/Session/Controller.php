@@ -131,12 +131,25 @@ class Controller extends \Frootbox\MVC\AbstractController
         \OmniTools\Persistence\Repository\User $userRepository,
     ): ResponseInterface
     {
-        // Fetch target user
-        $user = $userRepository->fetchOne([
-            'where' => [
-                'email' => $post->get('email'),
-            ],
-        ]);
+        if (filter_var($post->get('login'), FILTER_VALIDATE_EMAIL)) {
+
+            // Fetch target user
+            $user = $userRepository->fetchOne([
+                'where' => [
+                    'email' => $post->get('login'),
+                ],
+            ]);
+        }
+        else {
+
+            // Fetch target user
+            $user = $userRepository->fetchOne([
+                'where' => [
+                    'login' => $post->get('login'),
+                ],
+            ]);
+        }
+
 
         if (!$user) {
 
@@ -149,9 +162,9 @@ class Controller extends \Frootbox\MVC\AbstractController
 
             $db->transactionStart();
 
-            // Create super user on empty database
-            $user = $userRepository->insert(new \OmniTools\Persistence\Entity\User([
-                'email' => $post->get('email'),
+            // Create super-user on empty database
+            $user = $userRepository->persist(new \OmniTools\Persistence\Entity\User([
+                'email' => $post->get('login'),
                 'access' => 'Superuser',
             ]));
 
@@ -159,42 +172,6 @@ class Controller extends \Frootbox\MVC\AbstractController
             $user->save();
 
             $db->transactionCommit();
-        }
-
-        if (!empty($user->getPasswordOld())) {
-
-            $hash = $user->getPasswordOld();
-            $hash = base64_decode($hash);
-
-            $unp = unpack('N3', substr($hash, 1, 12));
-            $prf = $unp[1];
-
-            switch ($prf) {
-                case 0: $algorithm = 'sha1'; break;
-                case 1: $algorithm = 'sha256'; break;
-                case 2: $algorithm = 'sha512'; break;
-                default: throw new \Exception('invalid prf: ' . $prf);
-            }
-            $iterations = $unp[2];
-            $saltLength = $unp[3];
-            $subKeyLength = 32;
-            $salt = substr($hash, 13, $saltLength);
-            $derived = hash_pbkdf2($algorithm, $post->get('password'), $salt, $iterations, $subKeyLength, true);
-            $newHash = chr(0x01) . pack('N3', $prf, $iterations, $saltLength) . $salt . $derived;
-
-            if ($newHash != $hash) {
-                throw new \Frootbox\Exceptions\InputMissing('Anmeldung fehlgeschlagen.');
-            }
-
-            $user->setPasswordOld(null);
-            $user->setPassword($post->get('password'));
-            $user->save();
-        }
-        else {
-
-            if (!password_verify($post->get('password'), $user->getPassword())) {
-                throw new \Frootbox\Exceptions\InputMissing('Anmeldung fehlgeschlagen.');
-            }
         }
 
         // Log in user

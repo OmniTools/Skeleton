@@ -1,0 +1,58 @@
+{% extends 'App.html.twig' %}
+
+{% block Content %}
+
+    <div class="heading h1">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1><span class="prefix">#{{ xuser.getId() }}</span> {{ xuser.getEmail() }}</h1>
+                <span class="subtitle">Login-URL</span>
+            </div>
+            <div class="col-md-4 text-end">
+
+                <a data-bs-toggle="tooltip" data-bs-title="als dieser Benutzer anmelden" class="ajax btn btn-secondary" href="{{ controller.getActionUri('ajaxCaptureLogin', { userId: xuser.getId() }) }}"><i class="icon fa-regular fa-arrow-right-to-bracket"></i></a>
+                <a href="{{ controller.getActionUri('loginUrl', { userId: xuser.getId() }) }}" class="btn btn-secondary"><i class="icon far fa-link"></i></a>
+                <a data-bs-toggle="tooltip" data-bs-title="diesen Benutzer löschen" data-confirm="Soll dieser Benutzer wirklich gelöscht werden?" class="btn btn-danger ajax" href="{{ controller.getActionUri('ajaxDelete', { userId: xuser.getId() }) }}"><i class="far fa-trash preicon"></i>Benutzer löschen</a>
+
+            </div>
+        </div>
+    </div>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ controller.getUri('Admin', 'index') }}">Admin</a></li>
+            <li class="breadcrumb-item"><a href="{{ controller.getUri('Admin/Users', 'index') }}">Benutzerverwaltung</a></li>
+            <li class="breadcrumb-item"><a href="{{ controller.getUri('Admin/Users', 'details', { userId: xuser.getId() }) }}">{{ xuser.getEmail() }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Login-URL bearbeiten</li>
+        </ol>
+    </nav>
+
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-md-10">
+
+                            <code>
+                                <a href="{{ signedAction.getUri() }}">{{ signedAction.getUri() }}</a>
+                            </code>
+
+                        </div>
+                        <div class="col-md-2">
+                            <img class="img-fluid" src="https://api.qrserver.com/v1/create-qr-code/?format=svg&size=600x600&data={{ signedAction.getUri() | url_encode }}">
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'App.html.twig' %}
+
+{% block Content %}
+
+    <div class="heading h1">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1>Benutzeraktivität</h1>
+            </div>
+            <div class="col-md-4 text-end">
+
+                {#
+                <a data-bs-toggle="tooltip" data-bs-title="als dieser Benutzer anmelden" class="ajax btn btn-secondary" href="{{ controller.getActionUri('ajaxCaptureLogin', { userId: xuser.getId() }) }}"><i class="icon fa-regular fa-arrow-right-to-bracket"></i></a>
+                <a href="{{ controller.getActionUri('loginUrl', { userId: xuser.getId() }) }}" class="btn btn-secondary"><i class="icon far fa-link"></i></a>
+                <a class="btn btn-primary" href="{{ controller.getActionUri('delete', { userId: xuser.getId() }) }}"><i class="far fa-trash preicon"></i>Benutzer löschen</a>
+                #}
+
+            </div>
+        </div>
+    </div>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ controller.getUri('Admin', 'index') }}">Admin</a></li>
+            <li class="breadcrumb-item"><a href="{{ controller.getUri('Admin/Users', 'index') }}">Benutzerverwaltung</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Benutzeraktivität</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="card">
+                <div class="card-body">
+
+                    <h2>Benutzer</h2>
+
+                    <table class="table small-text">
+                        <thead>
+                            <tr>
+                                <th>Benutzer</th>
+                                <th>zuletzt aktiv</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for xuser in users %}
+                                <tr>
+                                    <td>
+                                        <div class="ellipsis-dynamic">
+                                            <a class="ajax" href="{{ controller.getActionUri('ajaxShowActivityLog', { userId: xuser.getId() }) }}">
+                                                <i class="far fa-user preicon"></i>{{ xuser.getEmail() }}
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td nowrap>{{ xuser.getLastClick() | date('d.m. H:i') }} Uhr</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-6">
+
+            <div class="sticky-top" style="margin-top: -150px; padding-top: 150px;">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h2>Log</h2>
+
+                        <div id="log-receiver">
+                            <p>Wähle einen Benutzer, um den jeweiligen Log anzuzeigen.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

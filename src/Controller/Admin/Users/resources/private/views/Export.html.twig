@@ -1,0 +1,58 @@
+{% extends 'App.html.twig' %}
+
+{% block Content %}
+
+    <div class="heading h1">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1>Export</h1>
+            </div>
+            <div class="col-md-4 text-end">
+
+            </div>
+        </div>
+    </div>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ controller.getUri('Admin', 'index') }}">Admin</a></li>
+            <li class="breadcrumb-item"><a href="{{ controller.getUri('Admin/Users', 'index') }}">Benutzerverwaltung</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Benutzer exportieren</li>
+        </ol>
+    </nav>
+
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <form method="post" action="{{ controller.getActionUri('ajaxExport') }}">
+
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="dateStart" class="form-label">von</label>
+                                    <input type="date" class="form-control" id="dateStart" name="dateStart" aria-describedby="emailHelp">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="dateEnd" class="form-label">bis</label>
+                                    <input type="date" class="form-control" id="dateEnd" name="dateEnd" aria-describedby="emailHelp">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Exportieren</button>
+
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}

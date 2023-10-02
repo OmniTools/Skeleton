@@ -1,0 +1,158 @@
+{% extends 'App.html.twig' %}
+
+{% block Content %}
+
+    <div class="heading h1">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1>Benutzerverwaltung</h1>
+            </div>
+            <div class="col-md-4 text-end">
+
+                <a href="{{ controller.getActionUri('import') }}" class="btn btn-primary">Import</a>
+
+            </div>
+        </div>
+    </div>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ controller.getUri('Admin', 'index') }}">Admin</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Benutzerverwaltung</li>
+        </ol>
+    </nav>
+
+    <ul class="nav nav-tabs">
+        {% for role in roles %}
+            <li class="nav-item">
+                <button class="nav-link {% if (not get.get('access') and loop.first) or (get.get('access') == role.getRoleKey()) %}active{% endif %}" id="tab-{{ role.getId() }}" data-bs-toggle="tab" data-bs-target="#tab-{{ role.getId() }}-pane" type="button" role="tab" aria-controls="tab-{{ role.getId() }}-pane" {% if loop.first %}aria-selected="true"{% endif %}>{{ role.getTitle() }}</button>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <script>
+        $(function() {
+
+            /**
+             *
+             */
+            $(document).on('click', 'a.sort-table', function(event) {
+
+                event.preventDefault();
+
+                const sortColumn = $(this).data('column');
+
+                $('#sortColumn').val(sortColumn);
+
+                $('#sortDirection').val(($('#sortDirection').val() == 'ASC') ? 'DESC' : 'ASC');
+
+
+                $('form.user-listing').trigger('submit');
+            });
+
+            /**
+             *
+             */
+            $('a.toggle-search').click(function(event) {
+
+                event.preventDefault();
+
+                if ($('.form-bar').hasClass('d-none')) {
+                    $('.form-bar').removeClass('d-none');
+                    $('.form-bar').find('[name="keyword"]').focus();
+                }
+                else {
+                    $('.form-bar').addClass('d-none');
+                }
+
+            });
+
+            /**
+             *
+             */
+            $(document).on('change', '#keyword', function(event) {
+                $('#page').val('');
+            });
+
+            /**
+             *
+             */
+            $(document).on('click', '.pagination a', function(event) {
+
+                event.preventDefault();
+
+                $('#page').val($(this).text());
+
+                $('form.user-listing').trigger('submit');
+
+            });
+        });
+    </script>
+
+    <div class="tab-content" id="myTabContent">
+
+        {% for role in roles %}
+
+            <div class="tab-pane fade {% if (not get.get('access') and loop.first) or (get.get('access') == role.getRoleKey()) %}show active{% endif %}" id="tab-{{ role.getId() }}-pane" role="tabpanel" aria-labelledby="tab-{{ role.getId() }}" tabindex="0">
+
+
+                <div class="card {% if loop.first %}with-tab-nav{% endif %}">
+                    <div class="card-body">
+
+                        <div class="heading h2">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <h2>{{ role.getTitle() }}</h2>
+                                </div>
+                                <div class="col-md-4">
+
+                                    <div class="gap-2 d-md-flex justify-content-md-end">
+                                        <a class="toggle-search btn btn-primary" href="#"><i class="far fa-search icon"></i></a>
+                                        <a class="btn btn-success" data-modal data-title="Benutzer hinzufügen" href="{{ controller.getUri('Admin/Users', 'ajaxModalCompose', { roleId: role.getId() }) }}"><i class="fa fa-plus"></i>Benutzer hinzufügen</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <form class="ajax user-listing" method="post" action="{{ controller.getActionUri('ajaxSearch', { access: 'User', selector: '#usersReceiver' }) }}">
+
+                            <input type="hidden" name="sortColumn" id="sortColumn" value="" />
+                            <input type="hidden" name="sortDirection" id="sortDirection" value="" />
+
+                            <input type="hidden" name="page" id="page" value="" />
+
+                            <div class="form-bar d-none">
+
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <input name="keyword" type="text" class="form-control" placeholder="Suchwort eingeben ..." value="{{ keyword }}">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="gap-2 d-grid">
+                                            <button type="submit" class="btn btn-primary">Suchen</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div id="role-receiver-{{ role.getId() }}">
+                                {{ view.partial('OmniTools/Controller/Admin/Users/Partials/ListUsers', {
+                                    role: role,
+                                    selector: '#usersReceiver'
+                                }) | raw }}
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+
+            </div>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}

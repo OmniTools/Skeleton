@@ -68,13 +68,20 @@ body.offcanvas-visible {
 .grid-container {
   height: 100vh;
   display: grid;
-  grid-template-columns: 300px 1fr;
+
+  grid-template-columns: 50px 1fr;
+}
+
+body.menu-visible {
+  .grid-container {
+    grid-template-columns: 300px 1fr;
+  }
 }
 
 .content {
 
   #inner-banner {
-    padding: 20px;
+    padding: 10px 20px;
 
     background: #FFF;
     border-bottom: 1px solid #f1f1f7;
@@ -82,17 +89,46 @@ body.offcanvas-visible {
     a {
       text-decoration: none;
     }
+
+    .banner-buttons {
+
+      .options-wrapper {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+
+        .button {
+          display: inline-block;
+          margin: 0 0 0 0px;
+
+          &.btn {
+            padding: 7px 14px;
+
+            i {
+              margin: 0;
+            }
+          }
+        }
+
+        .dropdown-menu {
+          .dropdown-item {
+            i {
+              &:first-child {
+                margin-right: 10px;
+              }
+            }
+          }
+        }
+      }
+
+    }
   }
 
   .content-wrapper {
     margin: 0 0 30px 0;
+    padding: 0 10px;
 
-    .heading.h1 {
-      margin: 0 -12px 20px -12px;
-      padding: 10px 20px;
 
-      background: #FFF;
-    }
 
     @media (min-width: 768px) {
 

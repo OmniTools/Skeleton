@@ -1,0 +1,50 @@
+{% extends 'App.html.twig' %}
+
+{% block Content %}
+
+    <div class="heading h1">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1>Benutzerrollen</h1>
+            </div>
+            <div class="col-md-4">
+
+            </div>
+        </div>
+    </div>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ controller.getUri('Admin', 'index') }}">Admin</a></li>
+            <li class="breadcrumb-item"><a href="{{ controller.getUri('Admin/Users', 'index') }}">Benutzerverwaltung</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Benutzerrollen</li>
+        </ol>
+    </nav>
+
+
+    <div class="card">
+        <div class="card-body">
+
+            <div class="heading h2">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h2>Rollen</h2>
+                    </div>
+                    <div class="col-md-4">
+
+                        <div class="gap-2 d-md-flex justify-content-md-end">
+                            <a class="btn btn-primary" data-modal data-title="Rolle hinzufügen" href="{{ controller.getActionUri('ajaxModalCompose') }}"><i class="fa fa-plus"></i>Rolle hinzufügen</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div id="roles-receiver">
+                {{ view.partial('OmniTools/Controller/Admin/Users/Roles/Partials/ListRoles') | raw }}
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

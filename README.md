@@ -14,3 +14,6 @@
         Schema: database-name
     Platform:
         BaseUrl            
+        DefaultController:
+            Controller: xxx
+            Action: xxx

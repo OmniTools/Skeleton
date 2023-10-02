@@ -1,0 +1,25 @@
+{% extends 'App.html.twig' %}
+
+{% block Content %}
+
+    <div class="heading h1">
+        <div class="row align-items-center">
+            <div class="col-md-9">
+                <h1>Administration</h1>
+            </div>
+            <div class="col-md-3">
+                <div class="gap-2 d-md-flex justify-content-md-end">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ controller.getUri('Dashboard', 'index') }}"><i class="far fa-home"></i></a></li>
+            <li class="breadcrumb-item active" aria-current="page">Administration</li>
+        </ol>
+    </nav>
+
+{% endblock %}

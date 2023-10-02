@@ -1,14 +1,22 @@
+@import '../variables';
+
 h1, h2, h3 {
+
   a.icon {
     margin-left: 10px;
-    color: $colorSuccess;
+    color: #CCC;
+
+    &.success {
+      color: $colorSuccess;
+    }
   }
 }
 
 h1 {
   margin: 0px 0 30px 0;
 
-  font-size: 28px;
+  color: $fontHeadingH1Color;
+  font-size: 24px;
   font-weight: bold;
 }
 
@@ -17,9 +25,10 @@ h2 {
 
   margin: 50px 0 30px 0;
 
+  color: $fontHeadingH2Color;
   line-height: 28px;
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 700;
 
   &.first {
     margin-top: 0;
@@ -31,10 +40,11 @@ h2 {
 }
 
 h3 {
-  margin: 20px 0 10px 0;
+  margin: 30px 0 15px 0;
 
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 600;
+  color: $fontHeadingH3Color;
 }
 
 h4 {
@@ -57,7 +67,6 @@ h6 {
 
   margin: 0 0 30px 0;
 
-
   .prefix {
     padding-right: 10px;
     color: #CCC;
@@ -69,6 +78,11 @@ h6 {
 
   &.h1 {
     margin-top: 20px;
+    font-size: inherit;
+
+    h1 {
+      margin-top: 4px;
+    }
 
     .subtitle {
       display: block;
@@ -80,11 +94,13 @@ h6 {
 
   &.h2 {
     margin-top: 50px;
+
+    h2 {
+      margin-bottom: 0;
+    }
   }
 
-  h2 {
-    margin: 0;
-  }
+
 
   &.h3 {
     margin-top: 20px;

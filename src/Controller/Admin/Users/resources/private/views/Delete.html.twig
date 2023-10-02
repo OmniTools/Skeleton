@@ -1,0 +1,31 @@
+{% extends 'App.html.twig' %}
+
+{% block Content %}
+
+    <div class="heading h1">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1><span class="prefix">#{{ xuser.getId() }}</span> {{ xuser.getEmail() }}</h1>
+                <span class="subtitle">Benutzerdetails</span>
+            </div>
+            <div class="col-md-4 text-end">
+
+                <a class="btn btn-primary" href="{{ controller.getActionUri('details', { userId: xuser.getId() }) }}">zurück</a>
+
+            </div>
+        </div>
+    </div>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ controller.getUri('Admin', 'index') }}">Admin</a></li>
+            <li class="breadcrumb-item"><a href="{{ controller.getUri('Admin/Users', 'index') }}">Benutzerverwaltung</a></li>
+            <li class="breadcrumb-item"><a href="{{ controller.getUri('Admin/Users', 'details', { userId: xuser.getId() }) }}">{{ xuser.getEmail() }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Benutzer löschen</li>
+        </ol>
+    </nav>
+
+
+    {{ view.partial('OmniTools/Controller/Admin/Companies/Partials/Delete', { company: company}) | raw }}
+
+{% endblock %}

@@ -1,0 +1,19 @@
+<form class="ajax" method="post" action="{{ controller.getActionUri('ajaxCreate') }}">
+
+    <div class="modal-body">
+
+        <div class="mb-3">
+            <label for="Title" class="form-label">Titel *</label>
+            <input type="text" class="form-control" required id="Title" name="Title">
+        </div>
+        <div class="mb-3">
+            <label for="RoleKey" class="form-label">Schlüssel *</label>
+            <input type="text" class="form-control" required id="RoleKey" name="RoleKey">
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Speichern</button>
+    </div>
+
+</form>

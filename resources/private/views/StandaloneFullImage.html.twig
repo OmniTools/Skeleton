@@ -1,0 +1,132 @@
+{% extends 'Base.html.twig' %}
+
+{% block Head %}
+    <link rel="stylesheet" type="text/css" href="public/css/build/{{ version | md5 }}/standalone.css" />
+{% endblock %}
+
+{% block Body %}
+
+    <style>
+        body {
+            background: top left url(public/assets/{{ image }}) no-repeat;
+            background-size: cover;
+        }
+
+        .container-fluid.standalone {
+            padding: 0 !important;
+        }
+
+        .container-fluid.standalone .content {
+            position: relative;
+            padding: 50px 70px;
+            height: 100%;
+            text-align: center;
+        }
+
+        .container-fluid.standalone .content .card {
+            margin: 0 !important;
+        }
+
+        .container-fluid.standalone .content .card-body {
+            padding: 50px 60px 0px 60px !important;
+        }
+
+        @media (min-width: 1200px) {
+            .container-fluid.standalone .content .card-body {
+                padding: 150px 60px 0px 60px !important;
+            }
+        }
+
+        .container-fluid.standalone .content .card-body #footer {
+            position: absolute;
+            inset: auto 60px 10px 60px;
+            text-align: left;
+        }
+
+        .container-fluid.standalone .content .card-body #footer nav {
+            text-align: right;
+        }
+
+        .container-fluid.standalone .content .card-body #footer nav a {
+            padding: 0 0 0 20px;
+        }
+
+
+        .container-fluid.standalone .content a.logo img {
+            max-width: 150px;
+            margin: 0 0 40px 0;
+        }
+
+        @media (min-width: 1200px) {
+            .container-fluid.standalone .content a.logo img {
+                max-width: 200px;
+                margin: 0 0 60px 0;
+            }
+        }
+
+    </style>
+
+    <div class="container-fluid standalone h-100">
+        <div class="row justify-content-end h-100">
+            <div class="col-lg-7 col-xl-{{ columns | default('4') }}">
+                <div class="content">
+
+                    <div class="card h-100">
+                        <div class="card-body h-100">
+
+                            <a class="logo" href="{{ controller.getUri('Dashboard', 'index') }}"><img src="public/images/logo.svg" alt="{{ configuration.get('Platform.Title') }}" /></a>
+
+
+                            {% block Content %}
+
+                            {% endblock %}
+
+                            <div id="footer">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>v. {{ version }}</p>
+                                    </div>
+                                    <div class="col-8">
+                                        <nav>
+                                            {% if configuration.get('Platform.Links.Imprint') %}
+                                                <a href="{{ configuration.get('Platform.Links.Imprint') }}">Impressum</a>
+                                            {% endif %}
+
+                                            {% if configuration.get('Platform.Links.Privacy') %}
+                                                <a href="{{ configuration.get('Platform.Links.Privacy') }}">Datenschutz</a>
+                                            {% endif %}
+
+                                            {% if configuration.get('Platform.Links.GeneralTerms') %}
+                                                <a href="{{ configuration.get('Platform.Links.GeneralTerms') }}">AGB</a>
+                                            {% endif %}
+                                        </nav>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{#
+    <div id="banner">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-6">
+                    <a class="logo" href="{{ controller.getUri('Dashboard', 'index') }}"><img src="public/images/logo-negative.svg" alt="{{ configuration.get('Platform.Title') }}" /></a>
+                </div>
+                <div class="col-6">
+                    {% block OptionalButtons %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+#}
+{% endblock %}

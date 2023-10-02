@@ -1,3 +1,5 @@
+@import '../variables';
+
 .card-rounded {
   border-radius: 15px;
 }
@@ -6,25 +8,44 @@
   position: relative;
   z-index: 400;
 
-  margin-bottom: 30px;
+  margin: 0 0 30px 0;
   padding: 0px;
 
   border: none;
   border-radius: 10px;
   box-shadow: 0px 0px 20px 0px rgba(76, 87, 125, 0.06);
 
-  &.bg-primary {
-    box-shadow: 0px 0px 20px 0px #FFF;
+  .card-header {
+    padding: 25px;
 
-    color: #FFF;
-
-    a {
+    h2 {
+      margin: 10px 0 20px 0;
       color: #FFF;
     }
 
-    input {
-      background: none;
+    p {
       color: #FFF;
+    }
+  }
+
+  &.bg-primary {
+    box-shadow: 0px 0px 20px 0px #FFF;
+
+    .card-body {
+      color: #FFF;
+
+      h2 {
+        color: #FFF;
+      }
+
+      a {
+        color: #FFF;
+      }
+
+      input {
+        background: none;
+        color: #FFF;
+      }
     }
   }
 
@@ -50,6 +71,26 @@
 
     @media (min-width: 768px) {
       padding: 40px;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    h2 {
+      margin: 10px 0 20px -25px;
+      padding: 3px 0 0 18px;
+      border-left: 5px solid $colorPrimary;
+    }
+
+    .heading.h1 {
+      margin: 0;
+
+      ol.breadcrumb {
+        margin-bottom: 0;
+      }
     }
 
     fieldset {
@@ -131,16 +172,37 @@
       margin-bottom: 0;
     }
 
-    h1, h2, h3, h4, h5, h6 {
-      &:first-child {
-        margin-top: 0;
+
+  }
+
+
+  nav.card-tab-nav {
+    display: flex;
+
+    border-top: 2px solid transparentize(#263871, .9);
+    background: #FFF;
+
+    a {
+      display: inline-block;
+      margin-right: 1px;
+      padding: 10px 20px;
+
+      text-decoration: none;
+      color: $fontBaseColor;
+
+      &:hover {
+        border-bottom: 3px solid $colorBackground;
+      }
+
+      &.active, &.active:hover {
+        border-bottom: 3px solid $colorPrimary;
       }
     }
+  }
+}
 
-    h2 {
-      margin: 10px 0 20px -25px;
-      padding: 3px 0 0 18px;
-      border-left: 5px solid $colorSpot2;
-    }
+.content-wrapper {
+  >.card:first-child {
+    margin-top: 30px;
   }
 }

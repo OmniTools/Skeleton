@@ -69,17 +69,6 @@ CREATE TABLE `logs` (
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `users_signedactions` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `date` datetime NOT NULL,
-    `updated` datetime NOT NULL,
-    `userId` int(11) NOT NULL,
-    `token` varchar(32) NOT NULL,
-    `action` varchar(45) NOT NULL,
-    `payload` text,
-    PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 CREATE TABLE `migrations` (
       `id` int(11) NOT NULL AUTO_INCREMENT,
       `date` datetime NOT NULL,
@@ -88,5 +77,4 @@ CREATE TABLE `migrations` (
       `version` varchar(45) NOT NULL,
       `log` text,
       PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

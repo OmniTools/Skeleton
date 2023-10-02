@@ -1,0 +1,27 @@
+<form class="ajax" method="post" action="{{ controller.getActionUri('ajaxDelete', { roleId: role.getId() }) }}">
+
+    <div class="modal-body">
+
+        <div class="mb-3 form-check">
+            <input type="checkbox" required class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Ja, die Benutzerrolle „{{ role.getTitle() }}“ soll uniwderruflich gelöscht werden.</label>
+        </div>
+        <div class="mb-3">
+            <label for="SubstituteRoleId" class="form-label">Ersatzrolle *</label>
+            <select required class="form-select" id="SubstituteRoleId" name="SubstituteRoleId">
+                <option value="" selected>bitte wählen ...</option>
+
+                {% for xrole in roles %}
+                    <option value="{{ xrole.getId() }}">{{ xrole.getTitle() }}</option>
+                {% endfor %}
+
+            </select>
+            <div id="emailHelp" class="form-text">Alle Benutzer mit der Rolle „{{ role.getTitle() }}“ werden dieser Rolle zugewiesen.</div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Speichern</button>
+    </div>
+
+</form>

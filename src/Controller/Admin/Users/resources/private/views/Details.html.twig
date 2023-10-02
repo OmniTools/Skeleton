@@ -1,0 +1,169 @@
+{% extends 'App.html.twig' %}
+
+{% block Content %}
+
+    <div class="heading h1">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1><span class="prefix">#{{ xuser.getId() }}</span> {{ xuser.getUsableLogin() }}</h1>
+                <span class="subtitle">Benutzerdetails</span>
+            </div>
+            <div class="col-md-4 text-end">
+
+                <a class="btn btn-light" href="{{ controller.getUri('Admin/Users', 'index', { access: xuser.getAccess() }) }}">zurück</a>
+                <a data-bs-toggle="tooltip" data-bs-title="als dieser Benutzer anmelden" class="ajax btn btn-secondary" href="{{ controller.getActionUri('ajaxCaptureLogin', { userId: xuser.getId() }) }}"><i class="icon fa-regular fa-arrow-right-to-bracket"></i></a>
+                <a href="{{ controller.getActionUri('loginUrl', { userId: xuser.getId() }) }}" class="btn btn-secondary"><i class="icon far fa-link"></i></a>
+                <a class="btn btn-danger" data-title="Benutzer löschen" data-modal href="{{ controller.getActionUri('ajaxModalDelete', { userId: xuser.getId() }) }}"><i class="far fa-trash preicon"></i>Benutzer löschen</a>
+
+            </div>
+        </div>
+    </div>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ controller.getUri('Admin', 'index') }}">Admin</a></li>
+            <li class="breadcrumb-item"><a href="{{ controller.getUri('Admin/Users', 'index', { access: xuser.getAccess() }) }}">Benutzerverwaltung</a></li>
+            <li class="breadcrumb-item"><a href="{{ controller.getUri('Admin/Users', 'details', { userId: xuser.getId() }) }}">{{ xuser.getUsableLogin() }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Benutzer bearbeiten</li>
+        </ol>
+    </nav>
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" href="{{ xuser.getUriAdmin() }}">Benutzerdetails</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ xuser.getUriAdmin('logs') }}">Logbuch</a>
+        </li>
+    </ul>
+
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="card with-tab-nav">
+                <div class="card-body">
+
+                    <h2>Benutzerdetails</h2>
+
+                    <form method="post" action="{{ controller.getUri('Admin/Users', 'ajaxUpdate', { userId: xuser.getId() }) }}" class="ajax">
+
+                        <div class="mb-3">
+                            <label for="Email" class="form-label">E-Mail</label>
+                            <input type="email" class="form-control" id="Email" name="Email" value="{{ xuser.getEmail() }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="Login" class="form-label">Benutzername</label>
+                            <input type="text" class="form-control" id="Login" name="Login" value="{{ xuser.getLogin() }}">
+                            <div id="emailHelp" class="form-text">Wenn nicht angegeben fungiert die E-Mail als Benutzername.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="Password" name="Password">
+                        </div>
+                        <div class="mb-3">
+                            <label for="FirstName" class="form-label">Vorname</label>
+                            <input type="text" class="form-control" id="FirstName" name="FirstName" value="{{ xuser.getFirstName() }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="LastName" class="form-label">Nachname</label>
+                            <input type="text" class="form-control" id="LastName" name="LastName" value="{{ xuser.getLastName() }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="Phone" class="form-label">Telefon</label>
+                            <input type="text" class="form-control" id="Phone" name="Phone" value="{{ xuser.getPhone() }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="Mobile" class="form-label">Mobil</label>
+                            <input type="text" class="form-control" id="Mobile" name="Mobile" value="{{ xuser.getMobile() }}">
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="Street" class="form-label">Straße Nr.</label>
+                            <input type="text" class="form-control" id="Street" name="Street" value="{{ xuser.getStreet() }}">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="Zipcode" class="form-label">PLZ</label>
+                                    <input type="text" class="form-control" id="Zipcode" name="Zipcode" value="{{ xuser.getZipcode() }}">
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="mb-3">
+                                    <label for="City" class="form-label">Ort</label>
+                                    <input type="text" class="form-control" id="City" name="City" value="{{ xuser.getCity() }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="acceptedGeneralterms" class="form-label">AGB zugestimmt</label>
+                                    <input readonly type="text" class="form-control" id="acceptedGeneralterms" name="acceptedGeneralterms" value="{{ xuser.getAcceptedGeneralterms() }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="acceptedPrivacy" class="form-label">Datenschutz zugestimmt</label>
+                                    <input readonly type="text" class="form-control" id="acceptedPrivacy" name="acceptedPrivacy" value="{{ xuser.getAcceptedPrivacy() }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Speichern</button>
+
+                    </form>
+
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="col-md-6">
+
+            <div class="card">
+                <div class="card-body">
+
+                    <h2>Profilbild</h2>
+
+                    <div id="thumbnailReceiver">
+                        {{ view.partial('OmniTools/Controller/Files/Partials/SingleFile', {
+                            container: '#thumbnailReceiver',
+                            uid: xuser.getUid('thumbnail'),
+                            single: true,
+                            skipCard: true
+                        }) | raw }}
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+
+                    <h2>Rollen</h2>
+
+                    <form action="{{ controller.getActionUri('ajaxUpdateRoles', { userId: xuser.getId() }) }}" method="post" class="ajax">
+
+                        {% for role in roles %}
+                            <div class="mb-3 form-check">
+                                <input name="roles[{{ role.getId() }}]" type="checkbox" class="form-check-input" id="role{{ role.getId() }}" {% if xuser.hasRole(role) %}checked{% endif %}>
+                                <label class="form-check-label" for="role{{ role.getId() }}">{{ role.getTitle() }}</label>
+                            </div>
+                        {% endfor %}
+
+                        <button type="submit" class="btn btn-primary">Speichern</button>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
