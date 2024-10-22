@@ -19,6 +19,9 @@ return [
             'Imprint' => null,
             'GeneralTerms' => null,
         ],
+        'Api' => [
+            'HashKey' => 'xxxx',
+        ],
     ],
     'Google' => [
         'Maps' => [

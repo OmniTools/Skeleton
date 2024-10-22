@@ -5,12 +5,12 @@
 
 namespace OmniTools\Controller\Session;
 
-use Frootbox\Db\Db;
-use OmniTools\Persistence\Entity\User;
+use OmniTools\Persistence\Entity;
+use OmniTools\Persistence\Repository;
+
 use Frootbox\MVC\Response;
 use Frootbox\MVC\ResponseInterface;
 use Frootbox\MVC\ResponseRedirect;
-use OmniTools\Token;
 
 /**
  * @access Public
@@ -122,21 +122,31 @@ class Controller extends \Frootbox\MVC\AbstractController
 
     /**
      * @access Public
+     *
+     * @param \Frootbox\Db\Db $db
+     * @param \Frootbox\Http\Get $get
+     * @param \Frootbox\Http\Post $post
+     * @param \Frootbox\MVC\Session $session
+     * @param Repository\User $userRepository
+     * @return ResponseInterface
+     * @throws \Frootbox\Exceptions\InputInvalid
+     * @throws \Frootbox\Exceptions\InputMissing
+     * @throws \Frootbox\Exceptions\RuntimeError
      */
     public function ajaxLoginAction(
         \Frootbox\Db\Db $db,
         \Frootbox\Http\Get $get,
         \Frootbox\Http\Post $post,
         \Frootbox\MVC\Session $session,
-        \OmniTools\Persistence\Repository\User $userRepository,
+        Repository\User $userRepository,
     ): ResponseInterface
     {
-        if (filter_var($post->get('login'), FILTER_VALIDATE_EMAIL)) {
+        if (filter_var($post->get('Login'), FILTER_VALIDATE_EMAIL)) {
 
             // Fetch target user
             $user = $userRepository->fetchOne([
                 'where' => [
-                    'email' => $post->get('login'),
+                    'email' => $post->get('Login'),
                 ],
             ]);
         }
@@ -145,7 +155,7 @@ class Controller extends \Frootbox\MVC\AbstractController
             // Fetch target user
             $user = $userRepository->fetchOne([
                 'where' => [
-                    'login' => $post->get('login'),
+                    'login' => $post->get('Login'),
                 ],
             ]);
         }
@@ -163,12 +173,12 @@ class Controller extends \Frootbox\MVC\AbstractController
             $db->transactionStart();
 
             // Create super-user on empty database
-            $user = $userRepository->persist(new \OmniTools\Persistence\Entity\User([
-                'email' => $post->get('login'),
+            $user = $userRepository->persist(Entity\User::fromArray([
+                'email' => $post->get('Login'),
                 'access' => 'Superuser',
             ]));
 
-            $user->setPassword($post->get('password'));
+            $user->setPassword($post->get('Password'));
             $user->save();
 
             $db->transactionCommit();

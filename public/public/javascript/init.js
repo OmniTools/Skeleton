@@ -12,13 +12,17 @@ $(function() {
     });
 
     /**
-     * Toggle offcanvas menu for mobile
+     * Toggle off-canvas menu for mobile
      */
-    $(document).on('click', 'a.toggle-menu', function(event) {
-        event.preventDefault();
-
-        $('body').toggleClass('offcanvas-visible');
-    });
+    if ($(window).width() <= 1366 && typeof ui.SidebarOnTablets != "undefiend" && ui.SidebarOnTablets == "AlwaysClosed") {
+        $('body').removeClass('menu-visible');
+    }
+    else if ($(window).width() <= 1366 && typeof ui.SidebarOnTablets != "undefiend" && ui.SidebarOnTablets == "AlwaysOpen") {
+        $('body').addClass('menu-visible');
+    }
+    else if ($(window).width() < 1112) {
+        $('body').removeClass('menu-visible');
+    }
 
     /**
      * Init nav panel

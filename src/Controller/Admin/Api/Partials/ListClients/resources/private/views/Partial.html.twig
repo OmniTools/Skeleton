@@ -1,9 +1,9 @@
 
-{% if clients | length == 0 %}
+{% if Clients.isEmpty() %}
     <div class="message info">Es wurden noch keine API-Clients erstellt.</div>
 {% else %}
 
-    <table class="table">
+    <table class="table table-row-dashed">
         <thead>
             <tr>
                 <th>Titel</th>
@@ -11,16 +11,19 @@
             </tr>
         </thead>
         <tbody>
-            {% for client in clients %}
-                <tr data-client="{{ client.getId() }}" data-title="Client bearbeiten" data-modal="{{ controller.getActionUri('ajaxModalEdit', { clientId: client.getId() }) }}" class="{% if highlight == client.getId() %}highlighted{% endif %}">
+
+            {% for Client in Clients %}
+                <tr data-client="{{ Client.getId() }}" data-title="Client bearbeiten" data-modal="{{ controller.getActionUri('ajaxModalEdit', { ClientId: Client.getId() }) }}" class="{% if Highlight == Client.getId() %}highlighted{% endif %}">
                     <td>
-                        <i class="far fa-clouds icon"></i>{{ client.getTitle() }}
+                        <i class="far fa-clouds preicon"></i>{{ Client.getTitle() }}
                     </td>
                     <td class="text-end">
-                        <a data-bs-toggle="tooltip" data-bs-title="API-Client löschen" data-confirm="Soll dieser API-Client wirklich gelöscht werden?" href="{{ controller.getActionUri('ajaxDelete', { clientId: client.getId() }) }}" class="ajax"><i class="fa-regular fa-trash"></i></a>
+                        <a data-bs-toggle="tooltip" data-bs-title="API-Client löschen" data-confirm="Soll dieser API-Client wirklich gelöscht werden?" href="{{ controller.getActionUri('ajaxDelete', { ClientId: Client.getId() }) }}" class="ajax"><i class="fa-regular fa-trash"></i></a>
                     </td>
                 </tr>
             {% endfor %}
+
         </tbody>
     </table>
+
 {% endif %}

@@ -5,7 +5,9 @@
 
 namespace OmniTools\Controller\Admin\Api;
 
-use Frootbox\Http\Get;
+use OmniTools\Persistence\Entity;
+use OmniTools\Persistence\Repository;
+
 use Frootbox\MVC\Response;
 use Frootbox\MVC\ResponseInterface;
 use Frootbox\MVC\ResponseRedirect;
@@ -27,7 +29,7 @@ class Controller extends \Frootbox\MVC\AbstractController
     }
 
     /**
-     *
+     * @return string
      */
     public function getPath(): string
     {
@@ -35,12 +37,17 @@ class Controller extends \Frootbox\MVC\AbstractController
     }
 
     /**
-     *
+     * @param \Frootbox\Http\Post $post
+     * @param Repository\Api\Client $clientRepository
+     * @param \Frootbox\MVC\View $view
+     * @return ResponseInterface
+     * @throws \Frootbox\Exceptions\InputInvalid
+     * @throws \Frootbox\Exceptions\NotFound
+     * @throws \Frootbox\Exceptions\RuntimeError
      */
     public function ajaxCreateAction(
         \Frootbox\Http\Post $post,
-        \Avaro\Persistence\Entity\Tenant $tenant,
-        \Avaro\Persistence\Repository\Api\Client $clientRepository,
+        Repository\Api\Client $clientRepository,
         \Frootbox\MVC\View $view,
     ): ResponseInterface
     {
@@ -55,19 +62,18 @@ class Controller extends \Frootbox\MVC\AbstractController
         }
 
         // Insert new client
-        $client = $clientRepository->insert(new \Avaro\Persistence\Entity\Api\Client([
-            'realmId' => $tenant->getId(),
+        $client = $clientRepository->persist(Entity\Api\Client::fromArray([
             'title' => $post->get('title'),
-            'clientKey' => RandomString(),
+            'clientId' => RandomString(),
             'clientSecret' => RandomString(),
         ]));
 
         return new Response([
             'success' => 'Die Daten wurden gespeichert.',
             'replace' => [
-                'selector' => '#clientsReceiver',
-                'html' => $view->partial('Avaro/Controller/Company/Api/Partials/ListClients', [
-                    'highlight' => $client->getId(),
+                'selector' => '#clients-receiver',
+                'html' => $view->partial('OmniTools/Controller/Admin/Api/Partials/ListClients', [
+                    'Highlight' => $client->getId(),
                 ]),
             ],
             'modalDismiss' => true,
@@ -75,28 +81,34 @@ class Controller extends \Frootbox\MVC\AbstractController
     }
 
     /**
-     * @param Get $get
-     * @param \Avaro\Persistence\Repository\Api\Client $clientRepository
+     * @param \Frootbox\Http\Get $get
+     * @param Repository\Api\Client $clientRepository
      * @param \Frootbox\MVC\View $view
      * @return ResponseInterface
+     * @throws \Frootbox\Exceptions\NotFound
+     * @throws \Frootbox\Exceptions\RuntimeError
      */
     public function ajaxDeleteAction(
         \Frootbox\Http\Get $get,
-        \Avaro\Persistence\Repository\Api\Client $clientRepository,
+        Repository\Api\Client $clientRepository,
         \Frootbox\MVC\View $view,
     ): ResponseInterface
     {
-        // Fetch client
-        $client = $clientRepository->fetchById($get->get('clientId'));
+        /**
+         * Fetch client
+         * @var Entity\Api\Client $client
+         */
+        $client = $clientRepository->fetchById($get->get('ClientId'));
 
+        // Delete client
         $client->delete();
 
         return new Response([
             'success' => 'Der API-Client wurde gelöscht.',
             'fadeOut' => '[data-client="' . $client->getId(). '"]',
             'replace' => [
-                'selector' => '#clientsReceiver',
-                'html' => $view->partial('Avaro/Controller/Company/Api/Partials/ListClients', [
+                'selector' => '#clients-receiver',
+                'html' => $view->partial('OmniTools/Controller/Admin/Api/Partials/ListClients', [
 
                 ]),
             ],
@@ -114,43 +126,53 @@ class Controller extends \Frootbox\MVC\AbstractController
     }
 
     /**
-     *
+     * @param \Frootbox\Http\Get $get
+     * @param Repository\Api\Client $clientRepository
+     * @return ResponseInterface
+     * @throws \Frootbox\Exceptions\NotFound
+     * @throws \Frootbox\Exceptions\RuntimeError
      */
     public function ajaxModalEditAction(
         \Frootbox\Http\Get $get,
-        \Avaro\Persistence\Repository\Api\Client $clientRepository,
+        Repository\Api\Client $clientRepository,
     ): ResponseInterface
     {
         // Fetch client
-        $client = $clientRepository->fetchById($get->get('clientId'));
+        $client = $clientRepository->fetchById($get->get('ClientId'));
 
         return new Response([
-            'client' => $client,
+            'Client' => $client,
         ]);
     }
 
     /**
-     *
+     * @param \Frootbox\Http\Get $get
+     * @param \Frootbox\Http\Post $post
+     * @param Repository\Api\Client $clientRepository
+     * @param \Frootbox\MVC\View $view
+     * @return ResponseInterface
+     * @throws \Frootbox\Exceptions\NotFound
+     * @throws \Frootbox\Exceptions\RuntimeError
      */
     public function ajaxUpdateAction(
         \Frootbox\Http\Get $get,
         \Frootbox\Http\Post $post,
-        \Avaro\Persistence\Repository\Api\Client $clientRepository,
+        Repository\Api\Client $clientRepository,
         \Frootbox\MVC\View $view,
     ): ResponseInterface
     {
         // Fetch client
-        $client = $clientRepository->fetchById($get->get('clientId'));
+        $client = $clientRepository->fetchById($get->get('ClientId'));
 
-        $client->setTitle($post->get('title'));
+        $client->setTitle($post->get('Title'));
         $client->save();
 
         return new Response([
             'success' => 'Die Daten wurden gespeichert.',
             'replace' => [
-                'selector' => '#clientsReceiver',
-                'html' => $view->partial('Avaro/Controller/Company/Api/Partials/ListClients', [
-
+                'selector' => '#clients-receiver',
+                'html' => $view->partial('OmniTools/Controller/Admin/Api/Partials/ListClients', [
+                    'Highlight' => $client->getId(),
                 ]),
             ],
             'modalDismiss' => true,

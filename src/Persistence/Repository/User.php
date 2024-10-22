@@ -10,8 +10,8 @@ namespace OmniTools\Persistence\Repository;
  */
 class User extends \Frootbox\Db\Model
 {
-    protected $table = 'users';
-    protected $class = \OmniTools\Persistence\Entity\User::class;
+    protected string $table = 'users';
+    protected string $class = \OmniTools\Persistence\Entity\User::class;
 
     /**
      * Creates a new user

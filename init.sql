@@ -3,6 +3,7 @@ CREATE TABLE `users` (
      `date` datetime NOT NULL,
      `updated` datetime NOT NULL,
      `companyId` int(11) DEFAULT NULL,
+     `login` varchar(255) DEFAULT NULL,
      `email` varchar(255) NOT NULL,
      `password` varchar(60) DEFAULT NULL,
      `isActive` tinyint(1) DEFAULT '1',
@@ -77,4 +78,16 @@ CREATE TABLE `migrations` (
       `version` varchar(45) NOT NULL,
       `log` text,
       PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `api_clients` (
+       `id` int(11) NOT NULL AUTO_INCREMENT,
+       `date` datetime NOT NULL,
+       `updated` datetime NOT NULL,
+       `tenantId` int(11) NOT NULL,
+       `userId` int(11) NOT NULL,
+       `title` varchar(45) NOT NULL,
+       `clientId` varchar(16) NOT NULL,
+       `clientSecret` varchar(64) NOT NULL,
+       PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
